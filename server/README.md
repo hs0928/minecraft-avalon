@@ -1,0 +1,1 @@
+코드는 server/plugins/skript/scripts 경로에 있습니다

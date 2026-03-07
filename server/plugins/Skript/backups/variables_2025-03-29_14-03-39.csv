@@ -1,0 +1,25 @@
+# === Skript's variable storage ===
+# Please do not modify this file manually!
+#
+# version: 2.9.5
+
+대표투표다음, boolean, 01
+라운드1, long, 0000000000000000
+모드레드, boolean, 00
+모르가나, boolean, 01
+선인원, long, 0000000000000002
+성공실패투표다음, boolean, 01
+악인원, long, 0000000000000003
+오베론, boolean, 01
+요정, long, 0000000000000001
+요정여부, boolean, 00
+원정대최대인원, long, 0000000000000002
+원정번째, long, 0000000000000002
+원정성공, long, 0000000000000000
+원정실패, long, 0000000000000000
+원정연속반대, long, 0000000000000000
+원정횟수, long, 0000000000000000
+접속인원수카운트, long, 0000000000000001
+찬반투표다음, boolean, 01
+퍼시벌, boolean, 01
+

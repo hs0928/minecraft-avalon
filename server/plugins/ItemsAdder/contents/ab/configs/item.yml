@@ -1,0 +1,267 @@
+info:
+  namespace: ab
+items:
+  card1:
+    enabled: true
+    display_name: 멀린
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card1.png
+  card2:
+    enabled: true
+    display_name: 퍼시벌
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card2.png
+  card3:
+    enabled: true
+    display_name: 암살자
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card3.png
+  card4:
+    enabled: true
+    display_name: 오베론
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card4.png
+  card5:
+    enabled: true
+    display_name: 모르가나
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card5.png
+  card6:
+    enabled: true
+    display_name: 모드레드
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card6.png
+  card7:
+    enabled: true
+    display_name: 기사1
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card7.png
+  card8:
+    enabled: true
+    display_name: 기사2
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card8.png
+  card9:
+    enabled: true
+    display_name: 기사3
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card9.png
+  card10:
+    enabled: true
+    display_name: 기사4
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/card10.png
+  sunggong:
+    enabled: true
+    display_name: 성공
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/sunggong.png
+  silpae:
+    enabled: true
+    display_name: 실패
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/silpae.png
+  chansung:
+    enabled: true
+    display_name: 찬성
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/chansung.png
+  bandae:
+    enabled: true
+    display_name: 반대
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bandae.png
+  job:
+    enabled: true
+    display_name: 직업
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/job.png
+  fairy:
+    enabled: true
+    display_name: 요정
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/fairy.png
+  role:
+    enabled: true
+    display_name: 역할
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/role.png
+  start:
+    enabled: true
+    display_name: 시작
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/start.png
+  good:
+    enabled: true
+    display_name: 선
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/good.png
+  bad:
+    enabled: true
+    display_name: 악
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bad.png
+  up:
+    enabled: true
+    display_name: 업
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/up.png
+  down:
+    enabled: true
+    display_name: 다운
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/down.png
+  gongback:
+    enabled: true
+    display_name: 1
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/gongback.png
+  zskin1:
+    enabled: true
+    display_name: 끠끼
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin1.png
+  zskin2:
+    enabled: true
+    display_name: 머독
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin2.png
+  zskin3:
+    enabled: true
+    display_name: 따린
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin3.png
+  zskin4:
+    enabled: true
+    display_name: 민결희
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin4.png
+  zskin5:
+    enabled: true
+    display_name: 감블러
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin5.png
+  zskin6:
+    enabled: true
+    display_name: 단즈
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin6.png
+  zskin7:
+    enabled: true
+    display_name: 로에
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin7.png
+  zskin8:
+    enabled: true
+    display_name: 사이다
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin8.png
+  zskin9:
+    enabled: true
+    display_name: 이름9
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin9.png
+  zskin10:
+    enabled: true
+    display_name: 이름10
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/zskin10.png

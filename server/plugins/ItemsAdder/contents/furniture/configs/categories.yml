@@ -1,0 +1,15 @@
+info:
+  namespace: furniturepack
+categories:
+  furniture:
+    enabled: true
+    icon: "furniturepack:magic_table"
+    name: "가구"
+    items:
+      - "furniturepack:magic_table"
+      - "furniturepack:magic_pillar"
+      - "furniturepack:magic_potions"
+      - "furniturepack:magic_cauldron"
+      - "furniturepack:lamp"
+      - "furniturepack:chair"
+      - "furniturepack:mini_cauldron"

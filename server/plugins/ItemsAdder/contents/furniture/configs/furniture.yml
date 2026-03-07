@@ -1,0 +1,176 @@
+info:
+  namespace: furniturepack
+items:
+  lamp:
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: lamp
+    behaviours:
+      furniture:
+        entity: item_frame
+        solid: false
+        small: false
+        placeable_on:
+          floor: true
+          ceiling: true
+          walls: true
+        hitbox:
+          height: 1
+        sound:
+          place:
+            name: block.stone.place
+          break:
+            name: block.stone.break
+
+  chair:
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: chair
+    behaviours:
+      furniture:
+        entity: armor_stand
+        fixed_rotation: true
+        solid: false
+        small: true
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 1
+        sound:
+          place:
+            name: block.wood.place
+          break:
+            name: block.wood.break
+
+  mini_cauldron:
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: mini_cauldron
+    behaviours:
+      furniture:
+        entity: armor_stand
+        fixed_rotation: true
+        solid: true
+        small: false
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 1
+        sound:
+          place:
+            name: block.stone.place
+          break:
+            name: block.stone.break
+
+  magic_table:
+    enabled: true
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: magic_table
+    behaviours:
+      furniture:
+        entity: armor_stand
+        solid: true
+        small: false
+        fixed_rotation: true
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 1
+        sound:
+          place:
+            name: block.stone.place
+          break:
+            name: block.stone.break
+
+  magic_cauldron:
+    enabled: true
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: magic_cauldron
+    behaviours:
+      furniture:
+        entity: armor_stand
+        solid: false
+        small: false
+        fixed_rotation: true
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 2
+          length: 3
+          width: 3
+        sound:
+          place:
+            name: block.stone.place
+          break:
+            name: block.stone.break
+
+  magic_pillar:
+    enabled: true
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: magic_pillar
+    behaviours:
+      furniture:
+        entity: armor_stand
+        solid: false
+        small: false
+        fixed_rotation: true
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 2
+        sound:
+          place:
+            name: block.stone.place
+          break:
+            name: block.stone.break
+
+  magic_potions:
+    display_name: ""
+    resource:
+      material: PAPER
+      generate: false
+      model_path: magic_potions
+    behaviours:
+      furniture:
+        entity: armor_stand
+        fixed_rotation: true
+        solid: true
+        small: true
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 1
+        sound:
+          place:
+            name: block.wood.place
+          break:
+            name: block.wood.break
+      furniture_sit:
+        sit_height: 0.5

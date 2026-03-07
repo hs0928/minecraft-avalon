@@ -1,0 +1,58 @@
+info:
+  namespace: ab
+font_images:
+  image_1:
+    path: il/charactor1.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: ♢
+  image_2:
+    path: il/charactor2.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: ⁜
+  image_3:
+    path: il/charactor3.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: €
+  image_4:
+    path: il/charactor4.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: £
+  image_5:
+    path: il/charactor5.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: ¥
+  image_6:
+    path: il/charactor6.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: ©
+  image_8:
+    path: il/charactor8.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: •
+  image_9:
+    path: il/charactor9.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: °
+  image_10:
+    path: il/charactor10.png
+    scale_ratio: 70
+    y_position: 50
+    symbol: ®
+  image_ws:
+    path: il/ws.png
+    scale_ratio: 35
+    y_position: 16
+    symbol: ∴
+  image_wp:
+    path: il/wp.png
+    scale_ratio: 35
+    y_position: 16
+    symbol: ∵

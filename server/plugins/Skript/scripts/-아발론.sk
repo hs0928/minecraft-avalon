@@ -1,0 +1,3082 @@
+options:
+    시스템: &7<&e시스템&7> &e
+    오류: &7<&e시스템&7> &c
+
+on chat:
+    if name of player is "kuiki771":
+        set the chat format to "&f< 끠끼 > : [message]"
+    if name of player is "_DIE_MF_DIE_":
+        set the chat format to "&f< 머독 > : [message]"
+    if name of player is "DDARIN":
+        set the chat format to "&f< 따린 > : [message]"
+    if name of player is "Gyeolhee":
+        set the chat format to "&f< 민결희 > : [message]"
+    if name of player is "9ambler":
+        set the chat format to "&f< 감블러 > : [message]"
+    if name of player is "Danz_":
+        set the chat format to "&f< 단즈 > : [message]"
+    if name of player is "Floweressloe":
+        set the chat format to "&f< 로에 > : [message]"
+    if name of player is "42dadada_":
+        set the chat format to "&f< 사이다 > : [message]"
+
+on join:
+    if {선인원} is not set:
+        set {선인원} to 2
+    if {악인원} is not set:
+        set {악인원} to 2
+    if {퍼시벌} is not set:
+        set {퍼시벌} to true
+    if {오베론} is not set:
+        set {오베론} to true
+    if {모르가나} is not set:
+        set {모르가나} to true
+    if {모드레드} is not set:
+        set {모드레드} to true
+    if {요정} is not set:
+        set {요정} to 1
+    if {요정여부} is not set:
+        set {요정여부} to false
+    console command "gamerule sendCommandFeedback false"
+
+#command test:#나중에접속관련참고
+#    trigger:
+#        if "%name of player%" is "_glape_":
+#            send "1" to player
+#        if "%name of player%" is "_glape":
+#            send "2" to player
+
+#command test:
+#    trigger:
+#        set {대표} to player
+#        add player to {암살자캐릭터::*}
+#        set {암살자종이} to player
+#        set {요정사람} to player
+#        give 1 paper named "&c멀린을 지목하세요." to player
+#        give 1 paper named "&f원정대 구성" to player
+#        give 1 paper named "&f세력 확인" to player
+#        send "%{대표}%" to player
+#        send "%{암살자종이}%" to player
+#        send "%{요정사람}%" to player
+#        send "%{관리자제외전체인원::*}%"
+
+#command test:
+#    trigger:
+#        give 1 paper named "&c멀린을 지목하세요." to player
+
+command 설정:
+    trigger:
+        if player is op:
+            open chest with 3 rows named "&9설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 10 of current inventory of player to itemsadder item "ab:job" named "&b특수 직업 설정"
+            set slot 12 of current inventory of player to itemsadder item "ab:role" named "&e역할 인원 설정"
+            set slot 14 of current inventory of player to itemsadder item "ab:fairy" named "&b요정 설정"
+            set slot 16 of current inventory of player to itemsadder item "ab:start" named "&a게임 시작"
+
+on inventory close:
+    if player's slot 9 is paper:
+        set slot 9 of player's inventory to air
+
+on inventory click:
+    if inventory name is "&9설정":
+        cancel event
+        
+        if clicked slot is 10:#<-----------------------------------------------------------------------------특수직업설정 GUI
+            open chest with 6 rows named "&b특수 직업 설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 10 of current inventory of player to itemsadder item "ab:card1"
+            set slot 13 of current inventory of player to itemsadder item "ab:card2"
+            set slot 16 of current inventory of player to itemsadder item "ab:card3"
+            set slot 37 of current inventory of player to itemsadder item "ab:card4"
+            set slot 40 of current inventory of player to itemsadder item "ab:card5"
+            set slot 43 of current inventory of player to itemsadder item "ab:card6"
+            set slot 19 of current inventory of player to lime wool named "&a활성화"
+            set slot 25 of current inventory of player to lime wool named "&a활성화"
+            set slot 9 of player's inventory to itemsadder item "_iainternal:icon_left_blue"
+            if {퍼시벌} is true:
+                set slot 22 of current inventory of player to lime wool named "&a활성화"
+            else:
+                set slot 22 of current inventory of player to red wool named "&c비활성화"
+            if {오베론} is true:
+                set slot 46 of current inventory of player to lime wool named "&a활성화"
+            else:
+                set slot 46 of current inventory of player to red wool named "&c비활성화"
+            if {모르가나} is true:
+                set slot 49 of current inventory of player to lime wool named "&a활성화"
+            else:
+                set slot 49 of current inventory of player to red wool named "&c비활성화"
+            if {모드레드} is true:
+                set slot 52 of current inventory of player to lime wool named "&a활성화"
+            else:
+                set slot 52 of current inventory of player to red wool named "&c비활성화"
+        
+        if clicked slot is 12:#<-----------------------------------------------------------------------------역할인원설정 GUI
+            open chest with 5 rows named "&e역할 인원 설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 29 of current inventory of player to itemsadder item "ab:down" named "&c제거"
+            set slot 20 of current inventory of player to {선인원} of itemsadder item "ab:good" named "&a선인원"
+            set slot 11 of current inventory of player to itemsadder item "ab:up" named "&a추가"
+            set slot 33 of current inventory of player to itemsadder item "ab:down" named "&c제거"
+            set slot 24 of current inventory of player to {악인원} of itemsadder item "ab:bad" named "&c악인원"
+            set slot 15 of current inventory of player to itemsadder item "ab:up" named "&a추가"
+            set slot 36 of player's current inventory to itemsadder item "_iainternal:icon_left_blue"
+        
+        if clicked slot is 14:#<-----------------------------------------------------------------------------요정설정 GUI
+            open chest with 5 rows named "&b요정 설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 31 of current inventory of player to itemsadder item "ab:down" named "&c제거"
+            if {요정여부} is true:
+                set slot 22 of current inventory of player to {요정} of itemsadder item "ab:fairy" named "&a요정"
+            else:
+                set slot 22 of current inventory of player to itemsadder item "ab:fairy" named "&c요정"
+            set slot 13 of current inventory of player to itemsadder item "ab:up" named "&a추가"
+            set slot 36 of player's current inventory to itemsadder item "_iainternal:icon_left_blue"
+        
+        if clicked slot is 16:
+            close player's inventory
+            execute player command "게임시작"
+
+    if inventory name is "&e역할 인원 설정":#<-----------------------------------------------------------------------------역할인원설정 인벤토리 클릭
+        cancel event
+        if clicked slot is 29:
+            if {선인원} is bigger than 2:
+                remove 1 from {선인원}
+                set slot 20 of current inventory of player to {선인원} of itemsadder item "ab:good" named "&a선인원"
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                play sound "entity.enderman.teleport" with volume 0.5 to player
+        if clicked slot is 11:
+            if 6 is bigger than {선인원}:
+                add 1 to {선인원}
+                set slot 20 of current inventory of player to {선인원} of itemsadder item "ab:good" named "&a선인원"
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                play sound "entity.enderman.teleport" with volume 0.5 to player
+        if clicked slot is 33:
+            if {악인원} is bigger than 2:
+                remove 1 from {악인원}
+                set slot 24 of current inventory of player to {악인원} of itemsadder item "ab:bad" named "&a선인원"
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                play sound "entity.enderman.teleport" with volume 0.5 to player
+        if clicked slot is 15:
+            if 6 is bigger than {악인원}:
+                add 1 to {악인원}
+                set slot 24 of current inventory of player to {악인원} of itemsadder item "ab:bad" named "&c악인원"
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                play sound "entity.enderman.teleport" with volume 0.5 to player
+        if clicked slot is 36:
+            open chest with 3 rows named "&9설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 10 of current inventory of player to itemsadder item "ab:job" named "&b특수 직업 설정"
+            set slot 12 of current inventory of player to itemsadder item "ab:role" named "&e역할 인원 설정"
+            set slot 14 of current inventory of player to itemsadder item "ab:fairy" named "&b요정 설정"
+            set slot 16 of current inventory of player to itemsadder item "ab:start" named "&a게임 시작"
+    
+    if inventory name is "&b특수 직업 설정":#<-----------------------------------------------------------------------------특수직업설정 인벤토리 클릭
+        cancel event
+        if clicked slot is 22:
+            if {퍼시벌} is true:
+                set slot 22 of current inventory of player to red wool named "&c비활성화"
+                set {퍼시벌} to false
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                set slot 22 of current inventory of player to lime wool named "&a활성화"
+                set {퍼시벌} to true
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+        if clicked slot is 46:
+            if {오베론} is true:
+                set slot 46 of current inventory of player to red wool named "&c비활성화"
+                set {오베론} to false
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                set slot 46 of current inventory of player to lime wool named "&a활성화"
+                set {오베론} to true
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+        if clicked slot is 49:
+            if {모르가나} is true:
+                set slot 49 of current inventory of player to red wool named "&c비활성화"
+                set {모르가나} to false
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                set slot 49 of current inventory of player to lime wool named "&a활성화"
+                set {모르가나} to true
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+        if clicked slot is 52:
+            if {모드레드} is true:
+                set slot 52 of current inventory of player to red wool named "&c비활성화"
+                set {모드레드} to false
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            else:
+                set slot 52 of current inventory of player to lime wool named "&a활성화"
+                set {모드레드} to true
+                play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+        if clicked slot is 9:
+            open chest with 3 rows named "&9설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 10 of current inventory of player to itemsadder item "ab:job" named "&b특수 직업 설정"
+            set slot 12 of current inventory of player to itemsadder item "ab:role" named "&e역할 인원 설정"
+            set slot 14 of current inventory of player to itemsadder item "ab:fairy" named "&b요정 설정"
+            set slot 16 of current inventory of player to itemsadder item "ab:start" named "&a게임 시작"
+    
+    if inventory name is "&b요정 설정":#<-----------------------------------------------------------------------------요정설정 인벤토리 클릭
+        cancel event
+        if clicked slot is 31:
+            if {요정여부} is true:
+                if {요정} is bigger than 2:
+                    remove 1 from {요정}
+                    wait 1 tick
+                    set slot 22 of current inventory of player to {요정} of itemsadder item "ab:fairy" named "&a요정"
+                    play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                else:
+                    play sound "entity.enderman.teleport" with volume 0.5 to player
+        if clicked slot is 13:
+            if {요정여부} is true:
+                if 5 is bigger than {요정}:
+                    add 1 to {요정}
+                    wait 1 tick
+                    set slot 22 of current inventory of player to {요정} of itemsadder item "ab:fairy" named "&a요정"
+                    play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                else:
+                    play sound "entity.enderman.teleport" with volume 0.5 to player
+        if clicked slot is 22:
+            if {요정여부} is false:
+                set {요정여부} to true
+                set slot 22 of current inventory of player to {요정} of itemsadder item "ab:fairy" named "&a요정"
+                play sound "minecraft:entity.experience_orb.pickup" to player
+            else:
+                set {요정여부} to false
+                set slot 22 of current inventory of player to itemsadder item "ab:fairy" named "&c요정"
+                play sound "minecraft:entity.experience_orb.pickup" to player
+        if clicked slot is 36:
+            open chest with 3 rows named "&9설정" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 10 of current inventory of player to itemsadder item "ab:job" named "&b특수 직업 설정"
+            set slot 12 of current inventory of player to itemsadder item "ab:role" named "&e역할 인원 설정"
+            set slot 14 of current inventory of player to itemsadder item "ab:fairy" named "&b요정 설정"
+            set slot 16 of current inventory of player to itemsadder item "ab:start" named "&a게임 시작"
+
+on rightclick on entity:
+    if event-entity's name is "설정":
+        execute player command "설정"
+
+on join:# "#나중에접속관련참고" 보고하기
+    console command "clear %player%"
+    console command "tp %player% 360 18 575"
+    if {접속카운트1} is not set:
+        set {접속카운트1} to name of player
+        #console command "스킨다운로드 %player% 1.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+    else if {접속카운트1} is set:
+        if {접속카운트2} is not set:
+            set {접속카운트2} to name of player
+            #console command "스킨다운로드 %player% 2.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+        else if {접속카운트2} is set:
+            if {접속카운트3} is not set:
+                set {접속카운트3} to name of player
+                #console command "스킨다운로드 %player% 3.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+            else if {접속카운트3} is set:
+                if {접속카운트4} is not set:
+                    set {접속카운트4} to name of player
+                    #console command "스킨다운로드 %player% 4.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                else if {접속카운트4} is set:
+                    if {접속카운트5} is not set:
+                        set {접속카운트5} to name of player
+                        #console command "스킨다운로드 %player% 5.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                    else if {접속카운트5} is set:
+                        if {접속카운트6} is not set:
+                            set {접속카운트6} to name of player
+                            #console command "스킨다운로드 %player% 6.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                        else if {접속카운트6} is set:
+                            if {접속카운트7} is not set:
+                                set {접속카운트7} to name of player
+                                #console command "스킨다운로드 %player% 7.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                            else if {접속카운트7} is set:
+                                if {접속카운트8} is not set:
+                                    set {접속카운트8} to name of player
+                                    #console command "스킨다운로드 %player% 8.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                else if {접속카운트8} is set:
+                                    if {접속카운트9} is not set:
+                                        set {접속카운트8} to name of player
+                                        #console command "스킨다운로드 %player% 9.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                    else if {접속카운트9} is set:
+                                        if {접속카운트10} is not set:
+                                            set {접속카운트10} to name of player
+                                            #console command "스킨다운로드 %player% 10.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+
+on server stop:
+    #if "%{접속카운트1}%" is "%name of player%":
+    delete {접속카운트1}
+    #if "%{접속카운트2}%" is "%name of player%":
+    delete {접속카운트2}
+    #if "%{접속카운트3}%" is "%name of player%":
+    delete {접속카운트3}
+    #if "%{접속카운트4}%" is "%name of player%":
+    delete {접속카운트4}
+    #if "%{접속카운트5}%" is "%name of player%":
+    delete {접속카운트5}
+    #if "%{접속카운트6}%" is "%name of player%":
+    delete {접속카운트6}
+    #if "%{접속카운트7}%" is "%name of player%":
+    delete {접속카운트7}
+    #if "%{접속카운트8}%" is "%name of player%":
+    delete {접속카운트8}
+    #if "%{접속카운트9}%" is "%name of player%":
+    delete {접속카운트9}
+    #if "%{접속카운트10}%" is "%name of player%":
+    delete {접속카운트10}
+    delete {관리자::*}
+    delete {관리자1}
+    delete {관리자2}
+
+on quit:
+    if "%{접속카운트1}%" is "%name of player%":
+        delete {접속카운트1}
+    if "%{접속카운트2}%" is "%name of player%":
+        delete {접속카운트2}
+    if "%{접속카운트3}%" is "%name of player%":
+        delete {접속카운트3}
+    if "%{접속카운트4}%" is "%name of player%":
+        delete {접속카운트4}
+    if "%{접속카운트5}%" is "%name of player%":
+        delete {접속카운트5}
+    if "%{접속카운트6}%" is "%name of player%":
+        delete {접속카운트6}
+    if "%{접속카운트7}%" is "%name of player%":
+        delete {접속카운트7}
+    if "%{접속카운트8}%" is "%name of player%":
+        delete {접속카운트8}
+    if "%{접속카운트9}%" is "%name of player%":
+        delete {접속카운트9}
+    if "%{접속카운트10}%" is "%name of player%":
+        delete {접속카운트10}
+
+on quit:
+    if player is {관리자1}:
+        delete {관리자1}
+    remove player from {관리자::*}
+
+every 2 tick:
+	loop all players:
+		if {대표Timer::%uuid of loop-player%} is set:
+			if {대표Timer::%uuid of loop-player%} is 0:
+				delete {대표Timer::%uuid of loop-player%}
+				delete {대표MaxTimer::%uuid of loop-player%}
+				remove bossbar "대표타이머"
+				set {_임시명령어} to random element of all players
+				make {_임시명령어} run command "z대표투표다음" as op
+				stop
+			subtract 0.1 from {대표Timer::%uuid of loop-player%}
+			set {_per} to {대표Timer::%uuid of loop-player%}/{대표MaxTimer::%uuid of loop-player%}*100
+			if {_per} is between 80 and 100:
+				set bossbar "대표타이머" color to blue
+			else if {_per} is between 50 and 79.99:
+				set bossbar "대표타이머" color to green
+			else if {_per} is between 20 and 49.99:
+				set bossbar "대표타이머" color to yellow
+			else if {_per} is between 0 and 19.99:
+				set bossbar "대표타이머" color to red
+			set bossbar "대표타이머" progress to {_per}
+			set bossbar "대표타이머" title to "&f[&9투표까지 남은 시간: &f[&b%{대표Timer::%uuid of loop-player%}%&9초&f]"	
+
+every 2 tick:
+	loop all players:
+		if {찬반Timer::%uuid of loop-player%} is set:
+			if {찬반Timer::%uuid of loop-player%} is 0:
+				delete {찬반Timer::%uuid of loop-player%}
+				delete {찬반MaxTimer::%uuid of loop-player%}
+				remove bossbar "찬반타이머"
+				set {_임시명령어} to random element of all players
+				make {_임시명령어} run command "z찬반투표다음" as op 
+				stop
+			subtract 0.1 from {찬반Timer::%uuid of loop-player%}
+			set {_per} to {찬반Timer::%uuid of loop-player%}/{찬반MaxTimer::%uuid of loop-player%}*100
+			if {_per} is between 80 and 100:
+				set bossbar "찬반타이머" color to blue
+			else if {_per} is between 50 and 79.99:
+				set bossbar "찬반타이머" color to green
+			else if {_per} is between 20 and 49.99:
+				set bossbar "찬반타이머" color to yellow
+			else if {_per} is between 0 and 19.99:
+				set bossbar "찬반타이머" color to red
+			set bossbar "찬반타이머" progress to {_per}
+			set bossbar "찬반타이머" title to "&f[&9투표까지 남은 시간: &f[&b%{찬반Timer::%uuid of loop-player%}%&9초&f]"	
+
+every 2 tick:
+	loop all players:
+		if {성실Timer::%uuid of loop-player%} is set:
+			if {성실Timer::%uuid of loop-player%} is 0:
+				delete {성실Timer::%uuid of loop-player%}
+				delete {성실MaxTimer::%uuid of loop-player%}
+				remove bossbar "성실타이머"
+				set {_임시명령어} to random element of all players
+				make {_임시명령어} run command "z성공실패투표다음" as op 
+				stop
+			subtract 0.1 from {성실Timer::%uuid of loop-player%}
+			set {_per} to {성실Timer::%uuid of loop-player%}/{성실MaxTimer::%uuid of loop-player%}*100
+			if {_per} is between 80 and 100:
+				set bossbar "성실타이머" color to blue
+			else if {_per} is between 50 and 79.99:
+				set bossbar "성실타이머" color to green
+			else if {_per} is between 20 and 49.99:
+				set bossbar "성실타이머" color to yellow
+			else if {_per} is between 0 and 19.99:
+				set bossbar "성실타이머" color to red
+			set bossbar "성실타이머" progress to {_per}
+			set bossbar "성실타이머" title to "&f[&9투표까지 남은 시간: &f[&b%{성실Timer::%uuid of loop-player%}%&9초&f]"
+
+on rightclick:
+    if name of event-item is "&f대표 선정":
+        open chest with 2 rows named "&f대표 선정" to player
+        set {_slot} to 0
+        loop {관리자제외전체인원::*}:
+            set {_head} to skull of loop-value
+            set name of {_head} to "&f%loop-value%"
+            set slot {_slot} of player's current inventory to {_head}
+            add 1 to {_slot}
+            set slot 17 of current inventory of player to paper named "&c기권"
+    if name of event-item is "&f원정대 찬반투표":
+        open chest with 3 rows named "&f원정대 찬반투표" to player
+        set slot 11 of current inventory of player to itemsadder item "ab:chansung"
+        set slot 15 of current inventory of player to itemsadder item "ab:bandae"
+    if name of event-item is "&f원정대 투표":
+        if {선::*} contains player:
+            open chest with 3 rows named "&f원정대 투표" to player
+            set slot 13 of current inventory of player to itemsadder item "ab:sunggong"
+        if {악::*} contains player:
+            open chest with 3 rows named "&f원정대 투표 " to player
+            set slot 11 of current inventory of player to itemsadder item "ab:sunggong"
+            set slot 15 of current inventory of player to itemsadder item "ab:silpae"
+    if name of event-item is "&f원정대 구성":
+        open chest with 3 rows named "&f원정대구성" to {대표}
+        set {_slot} to 0
+        loop {관리자제외전체인원::*}:
+            set {_head} to skull of loop-value
+            set name of {_head} to "&f%loop-value%"
+            set slot {_slot} of player's current inventory to {_head}
+            add 1 to {_slot}
+        set slot 22 of {대표}'s current inventory to paper named "&e구성완료"
+        
+    if name of event-item is "&c멀린을 지목하세요.":
+        open chest with 2 rows named "&c멀린을 지목하세요." to {암살자종이}
+        set {_slot} to 0
+        loop {관리자제외전체인원::*}:
+            set {_head} to skull of loop-value
+            set name of {_head} to "&f%loop-value%"
+            set slot {_slot} of {암살자종이}'s current inventory to {_head}
+            add 1 to {_slot}
+        add 1 to {_slot}
+    
+    if name of event-item contain "세력 확인":
+        open chest with 2 rows named "&f세력 확인" to player
+        set {_slot} to 0
+        loop {관리자제외전체인원::*}:
+            set {_head} to skull of loop-value
+            set name of {_head} to "&f%loop-value%"
+            set slot {_slot} of player's current inventory to {_head}
+            add 1 to {_slot}
+
+command 승리횟수초기화:
+    trigger:
+        delete {게임승리횟수::*}
+
+every 40 tick:
+    loop all players:
+        wipe loop-player's sidebar
+        add 0 to {원정횟수}
+        add 0 to {라운드1}
+        add 0 to {원정성공}
+        add 0 to {원정실패}
+        add 0 to {원정연속반대}
+        add 0 to {원정대최대인원}
+        add 0 to {게임승리횟수::%loop-player%}
+        set name of sidebar of loop-player to "&f진행 상황"
+        set score "&e%loop-player%님의 게임&b승리&e횟수 : %{게임승리횟수::%loop-player%}%" in sidebar of loop-player to 6
+        set score "&e현재 라운드 : %{원정횟수}%" in sidebar of loop-player to 5
+        set score "&9원정 성공 횟수 : %{원정성공}%" in sidebar of loop-player to 2
+        set score "&c원정 실패 횟수 : %{원정실패}%" in sidebar of loop-player to 1
+        set score "&c원정대 출발 연속 반대 횟수 : %{원정연속반대}%" in sidebar of loop-player to 0
+        set score "&e현재 원정 : %{원정횟수}%" in sidebar of loop-player to 4
+        set score "&e원정대 인원 수 : %{원정대최대인원}%" in sidebar of loop-player to 3
+
+every 1 second:
+	set {접속인원수카운트} to size of all players - size of {관리자::*}
+
+on drop:
+    cancel event
+
+on place:
+    cancel event
+
+on break:
+    cancel event
+
+every 2 second:
+    loop {관리자::*}:
+        if {관리자관전::%loop-value%} is true:
+            console command "gamemode spectator %loop-value%"
+        else:
+
+#on rightclick:
+    #if name of event-item contain "모델링":
+        #player command "kill @n[type=item_frame,limit=1]"
+
+#command 모델:
+#    trigger:
+#        player command "iaget furniturepack:chair"
+#        player command "iaget furniturepack:lamp"
+#        player command "iaget furniturepack:magic_cauldron"
+#        player command "iaget furniturepack:magic_pillar"
+#        player command "iaget furniturepack:magic_table"
+#        player command "iaget furniturepack:mini_cauldron"
+#        player command "give @s item_frame[entity_data={id:""minecraft:item_frame"",Invisible:1b}] 1"
+#        wait 1 tick
+#        give 1 paper named "모델링 제거" to player
+
+on rightclick on item frame:
+    if {관리자::*} does not contain player:
+        cancel event
+
+on damage:
+    if victim is item frame:
+        if {관리자::*} does not contain player:
+            cancel event
+
+every second:
+    loop all players:
+        if {관리자::*} contain loop-player:
+            hide loop-player from all players
+        else:
+            reveal loop-player to all players
+
+command z관리자관전모드:
+    trigger:
+        if {관리자::*} contain player:
+            if {관리자관전::%player%} is true:
+                delete {관리자관전::%player%}
+            else if {관리자관전::%player%} is not true:
+                set {관리자관전::%player%} to true
+            send "관리자관전모드상태 : %{관리자관전::%player%}%" to player
+
+command z관리자:
+    trigger:
+        player command "zadmin"
+
+command zadmin:
+    trigger:
+        if player is op:
+            if {관리자::*} does not contain player:
+                if size of {관리자::*} < 4:
+                    add player to {관리자::*}
+                    set {관리자1} to {관리자::1}
+                    set {관리자2} to {관리자::2}
+                    send "{@시스템}당신은 관리자목록에서 추가되었습니다" to player
+                    send "{@시스템}&e관리자 : %{관리자::*}%" to player
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    if "%{접속카운트1}%" is "%name of player%":
+                        delete {접속카운트1}
+                    if "%{접속카운트2}%" is "%name of player%":
+                        delete {접속카운트2}
+                    if "%{접속카운트3}%" is "%name of player%":
+                        delete {접속카운트3}
+                    if "%{접속카운트4}%" is "%name of player%":
+                        delete {접속카운트4}
+                    if "%{접속카운트5}%" is "%name of player%":
+                        delete {접속카운트5}
+                    if "%{접속카운트6}%" is "%name of player%":
+                        delete {접속카운트6}
+                    if "%{접속카운트7}%" is "%name of player%":
+                        delete {접속카운트7}
+                    if "%{접속카운트8}%" is "%name of player%":
+                        delete {접속카운트8}
+                    if "%{접속카운트9}%" is "%name of player%":
+                        delete {접속카운트9}
+                    if "%{접속카운트10}%" is "%name of player%":
+                        delete {접속카운트10}
+                else:
+                    send "{@오류}관리자 인원제한에 도달했습니다" to player
+                    play sound "minecraft:entity.enderman.teleport" to player
+            else:
+                if player is {관리자1}:
+                    delete {관리자1}
+                remove player from {관리자::*}
+                send "{@시스템}당신은 관리자목록에서 제거되었습니다" to player
+                play sound "minecraft:entity.experience_orb.pickup" to player
+                player command "gamemode creative @s"
+                send "{@시스템}&e관리자 : %{관리자::*}%" to player
+                if {접속카운트1} is not set:
+                    set {접속카운트1} to name of player
+                    #console command "스킨다운로드 %player% 1.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                else if {접속카운트1} is set:
+                    if {접속카운트2} is not set:
+                        set {접속카운트2} to name of player
+                        #console command "스킨다운로드 %player% 2.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                    else if {접속카운트2} is set:
+                        if {접속카운트3} is not set:
+                            set {접속카운트3} to name of player
+                            #console command "스킨다운로드 %player% 3.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                        else if {접속카운트3} is set:
+                            if {접속카운트4} is not set:
+                                set {접속카운트4} to name of player
+                                #console command "스킨다운로드 %player% 4.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                            else if {접속카운트4} is set:
+                                if {접속카운트5} is not set:
+                                    set {접속카운트5} to name of player
+                                    #console command "스킨다운로드 %player% 5.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                else if {접속카운트5} is set:
+                                    if {접속카운트6} is not set:
+                                        set {접속카운트6} to name of player
+                                        #console command "스킨다운로드 %player% 6.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                    else if {접속카운트6} is set:
+                                        if {접속카운트7} is not set:
+                                            set {접속카운트7} to name of player
+                                            #console command "스킨다운로드 %player% 7.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                        else if {접속카운트7} is set:
+                                            if {접속카운트8} is not set:
+                                                set {접속카운트8} to name of player
+                                                #console command "스킨다운로드 %player% 8.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                            else if {접속카운트8} is set:
+                                                if {접속카운트9} is not set:
+                                                    set {접속카운트8} to name of player
+                                                    #console command "스킨다운로드 %player% 9.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+                                                else if {접속카운트9} is set:
+                                                    if {접속카운트10} is not set:
+                                                        set {접속카운트10} to name of player
+                                                        #console command "스킨다운로드 %player% 10.png plugins/ItemsAdder/contents/test/resourcepack/assets/test/textures/skin"
+
+command 게임종료:
+    trigger:
+        if player is op:
+            console command "stopsound @a"
+            console command "clear @a"
+            console command "tp @a 360 20 583"
+            delete {역할타이틀로확인}
+            delete {역할확인종이}
+            delete {원정연속반대}
+            delete {멀린캐릭터::*}
+            delete {퍼시벌캐릭터::*}
+            delete {암살자캐릭터::*}
+            delete {오베론캐릭터::*}
+            delete {모르가나캐릭터::*}
+            delete {모드레드캐릭터::*}
+            delete {역할없음선캐릭터::*}
+            delete {역할없음악캐릭터::*}
+            delete {역할이름::*}
+            delete {역할군이름::*}
+            delete {선악지정::*}
+            delete {선랜덤역할지정::*}
+            delete {악랜덤역할지정::*}
+            delete {선::*}
+            delete {악::*}
+            delete {원정대찬성투표}
+            delete {원정대반대투표}
+            delete {원정대성공투표}
+            delete {원정대실패투표}
+            delete {원정대구성원::*}
+            delete {대표}
+            delete {득표수::*}
+            set {라운드1} to 0
+            set {원정횟수} to 0
+            delete {원정성공}
+            delete {원정실패}
+            delete {투표수1}
+            delete {투표수2}
+            delete {투표수3}
+            delete {선악지정::*}
+            delete {선랜덤역할지정::*}
+            delete {악랜덤역할지정::*}
+            delete {암살자종이}
+            delete {원정대최대인원}
+            #delete {기본bgm재생}
+            loop all players:
+                delete {대표Timer::%uuid of loop-player%}
+                delete {대표MaxTimer::%uuid of loop-player%}
+                wipe loop-player's sidebar
+            remove bossbar "대표타이머"
+            remove bossbar "찬반타이머"
+            remove bossbar "성실타이머"
+            delete {관리자제외전체인원::*}
+            loop all players:
+                if {관리자::*} does not contain loop-player:
+                    add loop-player to {관리자제외전체인원::*}
+            console command "sk disable 아발론.sk"
+            wait 2 second
+            console command "sk enable -아발론.sk"
+
+#command 기본bgm:
+#    trigger:
+#        if player is op:
+#            loop 1000 times:
+#                if {기본bgm재생} is true:
+#                    make player run command "playsound minecraft:1 ambient @a ~ ~ ~ 0.3" as op
+#                else:
+#                    stop
+#                wait 168 second
+
+command 게임시작:
+    trigger:
+        if player is op:
+            delete {관리자제외전체인원::*}
+            loop all players:
+                if {관리자::*} does not contain loop-player:
+                    add loop-player to {관리자제외전체인원::*}
+            #delete {기본bgm재생}
+            delete {역할타이틀로확인}
+            delete {역할확인종이}
+            delete {멀린캐릭터::*}
+            delete {퍼시벌캐릭터::*}
+            delete {암살자캐릭터::*}
+            delete {오베론캐릭터::*}
+            delete {모르가나캐릭터::*}
+            delete {모드레드캐릭터::*}
+            delete {역할없음선캐릭터::*}
+            delete {역할없음악캐릭터::*}
+            delete {선악지정::*}
+            delete {선랜덤역할지정::*}
+            delete {악랜덤역할지정::*}
+            delete {역할유뮤::*}
+            delete {역할이름::*}
+            delete {역할군이름::*}
+            delete {선::*}
+            delete {악::*}
+            delete {원정대찬성투표}
+            delete {원정대반대투표}
+            delete {원정대성공투표}
+            delete {원정대실패투표}
+            delete {원정대구성원::*}
+            delete {대표}
+            delete {득표수::*}
+            delete {원정연속반대}
+            set {라운드1} to 0
+            set {원정횟수} to 0
+            delete {원정성공}
+            delete {원정실패}
+            delete {투표수1}
+            delete {투표수2}
+            delete {투표수3}
+            delete {원정대최대인원}
+            remove bossbar "대표타이머"
+            remove bossbar "찬반타이머"
+            remove bossbar "성실타이머"
+            loop all players:
+                delete {대표Timer::%uuid of loop-player%}
+                delete {대표MaxTimer::%uuid of loop-player%}
+            delete {암살자종이}
+            console command "tp %{관리자::1}% 405 21 345"
+            console command "tp %{관리자::2}% 405 21 346"
+            console command "tp %{관리자::3}% 405 21 347"
+            console command "tp %{관리자::4}% 405 21 348"
+            console command "tp %{접속카운트1}% 376 21 344"
+            console command "tp %{접속카운트2}% 376 21 350"
+            console command "tp %{접속카운트3}% 381 21 354"
+            console command "tp %{접속카운트4}% 386 21 354"
+            console command "tp %{접속카운트5}% 391 21 354"
+            console command "tp %{접속카운트6}% 396 21 350"
+            console command "tp %{접속카운트7}% 396 21 344"
+            console command "tp %{접속카운트8}% 391 21 340"
+            console command "tp %{접속카운트9}% 386 21 340"
+            console command "tp %{접속카운트10}% 381 21 340"
+            console command "gamemode survival @a"
+            #set {기본bgm재생} to true
+            #make player run command "기본bgm" as op
+            play sound "minecraft:1" with volume 0.02 to all players
+            console command "clear @a"
+
+            wait 20 tick
+
+            send "{@시스템}&b3초후 캐릭터(역할)이 랜덤으로 정해집니다" to all players
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            wait 1 second
+            send "{@시스템}&b2초후 캐릭터(역할)이 랜덤으로 정해집니다" to all players
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            wait 1 second
+            send "{@시스템}&b1초후 캐릭터(역할)이 랜덤으로 정해집니다" to all players
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            wait 1 second
+            console command "effect give @a darkness infinite 1 true"
+            wait 3 second
+            console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil1'}]"
+            wait 1 tick
+            console command "stopsound @a * minecraft:item.armor.equip_generic"
+            play sound "minecraft:9" with volume 0.2 to all players
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to all players
+            wait 59 tick
+            console command "item replace entity @a armor.chest with minecraft:air"
+            add {관리자제외전체인원::*} to {선악지정::*}
+            loop {선인원} times:
+                set {_selected} to random element of {선악지정::*}
+                remove {_selected} from {선악지정::*}
+                add {_selected} to {선::*}
+                add {_selected} to {선랜덤역할지정::*}
+                set {역할군이름::%{_selected}%} to "&9선"
+
+            loop {악인원} times:
+                set {_selected} to random element of {선악지정::*}
+                remove {_selected} from {선악지정::*}
+                add {_selected} to {악::*}
+                add {_selected} to {악랜덤역할지정::*}
+                set {역할군이름::%{_selected}%} to "&c악"
+            
+            set {_멀린랜덤} to random element of {선랜덤역할지정::*}
+            remove {_멀린랜덤} from {선랜덤역할지정::*}
+            add {_멀린랜덤} to {멀린캐릭터::*}
+            
+            if {퍼시벌} is true:
+                set {_퍼시벌랜덤} to random element of {선랜덤역할지정::*}
+                remove {_퍼시벌랜덤} from {선랜덤역할지정::*}
+                add {_퍼시벌랜덤} to {퍼시벌캐릭터::*}
+            
+            loop 10 times:
+                set {_역할없음랜덤} to random element of {선랜덤역할지정::*}
+                remove {_역할없음랜덤} from {선랜덤역할지정::*}
+                add {_역할없음랜덤} to {역할없음선캐릭터::*}
+            
+
+            set {_암살자랜덤} to random element of {악랜덤역할지정::*}
+            remove {_암살자랜덤} from {악랜덤역할지정::*}
+            add {_암살자랜덤} to {암살자캐릭터::*}
+            
+            if {오베론} is true:
+                set {_오베론랜덤} to random element of {악랜덤역할지정::*}
+                remove {_오베론랜덤} from {악랜덤역할지정::*}
+                add {_오베론랜덤} to {오베론캐릭터::*}
+            
+            if {모르가나} is true:
+                set {_모르가나랜덤} to random element of {악랜덤역할지정::*}
+                remove {_모르가나랜덤} from {악랜덤역할지정::*}
+                add {_모르가나랜덤} to {모르가나캐릭터::*}
+            
+            if {모드레드} is true:
+                set {_모드레드랜덤} to random element of {악랜덤역할지정::*}
+                remove {_모드레드랜덤} from {악랜덤역할지정::*}
+                add {_모드레드랜덤} to {모드레드캐릭터::*}
+
+            loop 10 times:
+                set {_역할없음랜덤} to random element of {악랜덤역할지정::*}
+                remove {_역할없음랜덤} from {악랜덤역할지정::*}
+                add {_역할없음랜덤} to {역할없음악캐릭터::*}
+            
+            
+            set {역할확인종이} to true
+            set {역할타이틀로확인} to true
+
+            loop all players:
+                set {카드타이틀로확인::%loop-player%} to true
+
+            play sound "minecraft:7" to {선::*}
+            play sound "minecraft:8" to {악::*}
+
+            wait 60 tick
+            loop all players:
+                delete {카드타이틀로확인::%loop-player%}
+                console command "item replace entity @a armor.feet with minecraft:air"
+
+            wait 30 tick
+            #정체 확인
+            send "{@시스템}&c악의 세력 %nl%&e %{암살자캐릭터::*}%" to {암살자캐릭터::*}#%{모드레드캐릭터::*}%, %{역할없음악캐릭터::*}%
+            if {모르가나} is true:
+                send "&e%{모르가나캐릭터::*}%" to {암살자캐릭터::*}
+            else if {모르가나} is not true:
+
+            if {모드레드} is true:
+                send "&e%{모드레드캐릭터::*}%" to {암살자캐릭터::*}
+            else if {모드레드} is not true:           
+
+            if {역할없음악캐릭터::1} is set:
+                send "&e%{역할없음악캐릭터::1}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::2} is set:
+                send "&e%{역할없음악캐릭터::2}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::3} is set:
+                send "&e%{역할없음악캐릭터::3}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::4} is set:
+                send "&e%{역할없음악캐릭터::4}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::5} is set:
+                send "&e%{역할없음악캐릭터::5}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::6} is set:
+                send "&e%{역할없음악캐릭터::6}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::7} is set:
+                send "&e%{역할없음악캐릭터::7}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::8} is set:
+                send "&e%{역할없음악캐릭터::8}%" to {암살자캐릭터::*}
+            if {역할없음악캐릭터::9} is set:
+                send "&e%{역할없음악캐릭터::9}%" to {암살자캐릭터::*}
+            
+
+            send "{@시스템}&c악의 세력 %nl%&e %{암살자캐릭터::*}%" to {모르가나캐릭터::*}
+            if {모르가나} is true:
+                send "&e%{모르가나캐릭터::*}%" to {모르가나캐릭터::*}
+            else if {모르가나} is not true:
+
+            if {모드레드} is true:
+                send "&e%{모드레드캐릭터::*}%" to {모르가나캐릭터::*}
+            else if {모드레드} is not true:            
+
+            if {역할없음악캐릭터::1} is set:
+                send "&e%{역할없음악캐릭터::1}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::2} is set:
+                send "&e%{역할없음악캐릭터::2}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::3} is set:
+                send "&e%{역할없음악캐릭터::3}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::4} is set:
+                send "&e%{역할없음악캐릭터::4}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::5} is set:
+                send "&e%{역할없음악캐릭터::5}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::6} is set:
+                send "&e%{역할없음악캐릭터::6}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::7} is set:
+                send "&e%{역할없음악캐릭터::7}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::8} is set:
+                send "&e%{역할없음악캐릭터::8}%" to {모르가나캐릭터::*}
+            if {역할없음악캐릭터::9} is set:
+                send "&e%{역할없음악캐릭터::9}%" to {모르가나캐릭터::*}
+            
+            
+            send "{@시스템}&c악의 세력 %nl%&e %{암살자캐릭터::*}%" to {모드레드캐릭터::*}
+            if {모르가나} is true:
+                send "&e%{모르가나캐릭터::*}%" to {모드레드캐릭터::*}
+            else if {모르가나} is not true:
+
+            if {모드레드} is true:
+                send "&e%{모드레드캐릭터::*}%" to {모드레드캐릭터::*}
+            else if {모드레드} is not true:        
+
+            if {역할없음악캐릭터::1} is set:
+                send "&e%{역할없음악캐릭터::1}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::2} is set:
+                send "&e%{역할없음악캐릭터::2}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::3} is set:
+                send "&e%{역할없음악캐릭터::3}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::4} is set:
+                send "&e%{역할없음악캐릭터::4}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::5} is set:
+                send "&e%{역할없음악캐릭터::5}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::6} is set:
+                send "&e%{역할없음악캐릭터::6}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::7} is set:
+                send "&e%{역할없음악캐릭터::7}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::8} is set:
+                send "&e%{역할없음악캐릭터::8}%" to {모드레드캐릭터::*}
+            if {역할없음악캐릭터::9} is set:
+                send "&e%{역할없음악캐릭터::9}%" to {모드레드캐릭터::*}
+            
+
+            send "{@시스템}&c악의 세력 %nl%&e %{암살자캐릭터::*}%" to {역할없음악캐릭터::*}
+            if {모르가나} is true:
+                send "&e%{모르가나캐릭터::*}%" to {역할없음악캐릭터::*}
+            else if {모르가나} is not true:
+
+            if {모드레드} is true:
+                send "&e%{모드레드캐릭터::*}%" to {역할없음악캐릭터::*}
+            else if {모드레드} is not true:         
+
+            if {역할없음악캐릭터::1} is set:
+                send "&e%{역할없음악캐릭터::1}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::2} is set:
+                send "&e%{역할없음악캐릭터::2}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::3} is set:
+                send "&e%{역할없음악캐릭터::3}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::4} is set:
+                send "&e%{역할없음악캐릭터::4}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::5} is set:
+                send "&e%{역할없음악캐릭터::5}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::6} is set:
+                send "&e%{역할없음악캐릭터::6}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::7} is set:
+                send "&e%{역할없음악캐릭터::7}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::8} is set:
+                send "&e%{역할없음악캐릭터::8}%" to {역할없음악캐릭터::*}
+            if {역할없음악캐릭터::9} is set:
+                send "&e%{역할없음악캐릭터::9}%" to {역할없음악캐릭터::*}
+
+            
+            send "{@시스템}&c악의 세력 %nl%&e %{암살자캐릭터::*}%" to {멀린캐릭터::*}
+            if {모르가나} is true:
+                send "&e%{모르가나캐릭터::*}%" to {멀린캐릭터::*}
+            else if {모르가나} is not true:
+
+            if {오베론} is true:
+                send "&e%{오베론캐릭터::*}%" to {멀린캐릭터::*}
+            else if {오베론} is not true:         
+
+            if {역할없음악캐릭터::1} is set:
+                send "&e%{역할없음악캐릭터::1}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::2} is set:
+                send "&e%{역할없음악캐릭터::2}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::3} is set:
+                send "&e%{역할없음악캐릭터::3}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::4} is set:
+                send "&e%{역할없음악캐릭터::4}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::5} is set:
+                send "&e%{역할없음악캐릭터::5}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::6} is set:
+                send "&e%{역할없음악캐릭터::6}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::7} is set:
+                send "&e%{역할없음악캐릭터::7}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::8} is set:
+                send "&e%{역할없음악캐릭터::8}%" to {멀린캐릭터::*}
+            if {역할없음악캐릭터::9} is set:
+                send "&e%{역할없음악캐릭터::9}%" to {멀린캐릭터::*}
+
+            
+            send "{@시스템}&9멀린 %nl%&e %{멀린캐릭터::*}%" to {퍼시벌캐릭터::*}
+            if {모르가나캐릭터::*} is true:
+                send "&e%{모르가나캐릭터::*}%" to {퍼시벌캐릭터::*}
+            else if {모르가나캐릭터::*} is not true:
+            
+            
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+            wait 50 tick
+            console command "effect clear @a darkness"
+
+            wait 45 tick
+
+            console command "effect clear @a"
+            console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil2'}]"
+            console command "stopsound @a * minecraft:item.armor.equip_generic"
+            play sound "minecraft:13" with volume 0.2 to all players
+            wait 3 seconds
+            console command "item replace entity @a armor.chest with minecraft:air"
+
+            give 1 paper named "&f대표 선정" to all players
+            set {대표Timer::%uuid of player%} to 180
+            set {대표MaxTimer::%uuid of player%} to 180
+            create bossbar titled "&f[&9투표까지 남은 시간: &b%{대표Timer::%uuid of player%}%&9초&f]" and id "대표타이머" for all players with progress 100 with colors blue with style segmented 10
+
+command 역할확인:
+    trigger:
+        send "멀린 %{멀린캐릭터::*}%" to player
+        send "퍼시벌 %{퍼시벌캐릭터::*}%" to player
+        send "암살자 %{암살자캐릭터::*}%" to player
+        send "모드레드 %{모드레드캐릭터::*}%" to player
+        send "모르가나 %{모르가나캐릭터::*}%" to player
+        send "오베론 %{오베론캐릭터::*}%" to player
+        send "기사(선) %{역할없음선캐릭터::*}%" to player
+        send "기사(악) %{역할없음악캐릭터::*}%" to player
+
+every 10 tick:
+    if {역할확인종이} is true:
+        loop all players:
+            set slot 8 of inventory of loop-player to paper named "&f역할 확인"
+
+every 10 tick:
+    if {역할타이틀로확인} is true:
+        send actionbar "♢" to {멀린캐릭터::*}
+        send actionbar "⁜" to {퍼시벌캐릭터::*}
+        send actionbar "€" to {암살자캐릭터::*}
+        send actionbar "£" to {오베론캐릭터::*}
+        send actionbar "¥" to {모르가나캐릭터::*}
+        send actionbar "©" to {모드레드캐릭터::*}
+        send actionbar "•" to {역할없음악캐릭터::*}
+        send actionbar "®" to {역할없음선캐릭터::*}
+    else:
+
+every tick:
+    loop all players:
+        if {카드타이틀로확인::%loop-player%} is true:
+            #send title "%{역할이름::%loop-player%}%" to loop-player
+        else:
+
+on inventory click:
+    if name of event-item is "&f역할 확인":
+        cancel event
+
+on player's held item change:
+    if {카드타이틀로확인::%player%} is true:
+        delete {카드타이틀로확인::%player%}
+
+on rightclick:
+    if event-item is paper:
+        if name of event-item contain "역할 확인":
+            #send "%{카드타이틀로확인::%player%}%" to player
+            if {카드타이틀로확인::%player%} is not true:
+                set {카드타이틀로확인::%player%} to true
+            else if {카드타이틀로확인::%player%} is true:
+                delete {카드타이틀로확인::%player%}
+
+every tick:
+    loop all players:
+        if {카드타이틀로확인::%loop-player%} is true:
+            #send "1" to loop-player
+            if {멀린캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil1'}]"
+            if {퍼시벌캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil2'}]"
+            if {암살자캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil3'}]"
+            if {오베론캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil4'}]"
+            if {모르가나캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil5'}]"
+            if {모드레드캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil6'}]"
+            if {역할없음선캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil7'}]"
+            if {역할없음악캐릭터::*} contain loop-player:
+                console command "item replace entity %loop-player% armor.feet with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'feet',camera_overlay:'misc/cardil8'}]"
+            console command "stopsound @a * minecraft:item.armor.equip_generic"
+        if {카드타이틀로확인::%loop-player%} is not true:
+            console command "item replace entity %loop-player% armor.feet with minecraft:air"
+            #send "2" to loop-player
+
+on inventory click:
+    if event-item is light gray stained glass pane:
+        cancel event
+
+#command 인원초기화:
+#    trigger:
+#        if player is op:
+#            delete {접속카운트1}
+#            delete {접속카운트2}
+#            delete {접속카운트3}
+#            delete {접속카운트4}
+#            delete {접속카운트5}
+#            delete {접속카운트6}
+#            delete {접속카운트7}
+#            delete {접속카운트8}
+#            delete {접속카운트9}
+#            delete {접속카운트10}
+
+command 인원:
+    trigger:
+        if player is op:
+            send "%{접속카운트1}%" to player
+            send "%{접속카운트2}%" to player
+            send "%{접속카운트3}%" to player
+            send "%{접속카운트4}%" to player
+            send "%{접속카운트5}%" to player
+            send "%{접속카운트6}%" to player
+            send "%{접속카운트7}%" to player
+            send "%{접속카운트8}%" to player
+            send "%{접속카운트9}%" to player
+            send "%{접속카운트10}%" to player
+
+on inventory click:
+    if inventory name is "&f대표 선정":
+        cancel event
+        if clicked slot is 17:
+            close player's inventory
+            send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            remove 1 paper named "&f대표 선정" from player
+            add 1 to {투표수1}
+            #send "%{접속인원수카운트}%, %{투표수1}%, %player%" to all players
+            if {접속인원수카운트} = {투표수1}:
+                make player run command "z대표투표다음" as op
+                loop all players:
+                    delete {대표Timer::%uuid of loop-player%}
+                    delete {대표MaxTimer::%uuid of loop-player%}
+                remove bossbar "대표타이머"
+            else:
+
+
+        else:
+            if event-item is not air:
+                loop all players:
+                    if event-item's name is "&f%name of loop-player%":
+                        add 1 to {득표수::%uuid of loop-player%}
+                        close player's inventory
+                        send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                        remove 1 paper named "&f대표 선정" from player
+                        add 1 to {투표수1}
+                        #send "%{접속인원수카운트}%, %{투표수1}%, %player%" to all players
+                        if {접속인원수카운트} = {투표수1}:
+                            make player run command "z대표투표다음" as op
+                            delete {대표Timer::%uuid of loop-player%}
+                            delete {대표MaxTimer::%uuid of loop-player%}
+                            remove bossbar "대표타이머"
+                        else:
+
+    
+    if inventory name is "&f원정대 찬반투표":
+        cancel event
+        if clicked slot is 11:
+            add 1 to {원정대찬성투표}
+            loop all players:
+                wipe loop-player's sidebar
+            close player's inventory
+            send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            remove 1 paper named "&f원정대 찬반투표" from player
+            add 1 to {투표수2}
+            #send "%{접속인원수카운트}%, %{투표수2}%, %player%" to all players
+            if {접속인원수카운트} = {투표수2}:
+                make player run command "z찬반투표다음" as op
+                loop all players:
+                    delete {찬반Timer::%uuid of loop-player%}
+                    delete {찬반MaxTimer::%uuid of loop-player%}
+                remove bossbar "찬반타이머"
+            else:
+
+        if clicked slot is 15:
+            add 1 to {원정대반대투표}
+            loop all players:
+                wipe loop-player's sidebar
+            close player's inventory
+            send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            remove 1 paper named "&f원정대 찬반투표" from player
+            add 1 to {투표수2}
+            #send "%{접속인원수카운트}%, %{투표수2}%, %player%" to all players
+            if {접속인원수카운트} = {투표수2}:
+                make player run command "z찬반투표다음" as op
+                loop all players:
+                    delete {찬반Timer::%uuid of loop-player%}
+                    delete {찬반MaxTimer::%uuid of loop-player%}
+                remove bossbar "찬반타이머"
+            else:
+
+    if inventory name is "&f원정대 투표":
+        cancel event
+        if clicked slot is 13:
+            add 1 to {원정대성공투표}
+            loop all players:
+                wipe loop-player's sidebar
+            close player's inventory
+            send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            remove 1 paper named "&f원정대 투표" from player
+            add 1 to {투표수3}
+            #send "%size of {원정대구성원::*}%, %{투표수3}%, %player%" to all players
+            if size of {원정대구성원::*} = {투표수3}:
+                make player run command "z성공실패투표다음" as op
+                loop all players:
+                    delete {성실Timer::%uuid of loop-player%}
+                    delete {성실MaxTimer::%uuid of loop-player%}
+                remove bossbar "성실타이머"
+            else:
+
+    if inventory name is "&f원정대 투표 ":
+        cancel event
+        if clicked slot is 11:
+            add 1 to {원정대성공투표}
+            loop all players:
+                wipe loop-player's sidebar
+            close player's inventory
+            send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            remove 1 paper named "&f원정대 투표" from player
+            add 1 to {투표수3}
+            #send "%size of {원정대구성원::*}%, %{투표수3}%, %player%" to all players
+            if size of {원정대구성원::*} = {투표수3}:
+                make player run command "z성공실패투표다음" as op
+                loop all players:
+                    delete {성실Timer::%uuid of loop-player%}
+                    delete {성실MaxTimer::%uuid of loop-player%}
+                remove bossbar "성실타이머"
+            else:
+
+        if clicked slot is 15:
+            add 1 to {원정대실패투표}
+            loop all players:
+                wipe loop-player's sidebar
+            close player's inventory
+            send "{@시스템}&e투표를 완료하셨습니다. 투표가 끝날때까지 기다려주세요" to player
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            remove 1 paper named "&f원정대 투표" from player
+            add 1 to {투표수3}
+            #send "%size of {원정대구성원::*}%, %{투표수3}%, %player%" to all players
+            if size of {원정대구성원::*} = {투표수3}:
+                make player run command "z성공실패투표다음" as op
+                loop all players:
+                    delete {성실Timer::%uuid of loop-player%}
+                    delete {성실MaxTimer::%uuid of loop-player%}
+                remove bossbar "성실타이머"
+            else:
+    
+    if inventory name is "&f원정대구성":
+        cancel event
+        if event-item is not air:
+            if event-item is not paper:
+                if "%event-item's name%" is "&f%{접속카운트1}%":
+                    if {원정대구성원::*} does not contain {접속카운트1}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트1} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트1}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트1}:
+                        remove {접속카운트1} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트1}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트2}%":
+                    if {원정대구성원::*} does not contain {접속카운트2}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트2} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트2}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트2}:
+                        remove {접속카운트2} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트2}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트3}%":
+                    if {원정대구성원::*} does not contain {접속카운트3}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트3} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트3}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트3}:
+                        remove {접속카운트3} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트3}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트4}%":
+                    if {원정대구성원::*} does not contain {접속카운트4}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트4} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트4}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트4}:
+                        remove {접속카운트4} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트4}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트5}%":
+                    if {원정대구성원::*} does not contain {접속카운트5}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트5} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트5}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트5}:
+                        remove {접속카운트5} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트5}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트6}%":
+                    if {원정대구성원::*} does not contain {접속카운트6}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트6} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트6}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트6}:
+                        remove {접속카운트6} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트6}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트7}%":
+                    if {원정대구성원::*} does not contain {접속카운트7}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트7} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트7}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트7}:
+                        remove {접속카운트7} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트7}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트8}%":
+                    if {원정대구성원::*} does not contain {접속카운트8}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트8} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트8}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트8}:
+                        remove {접속카운트8} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트8}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트9}%":
+                    if {원정대구성원::*} does not contain {접속카운트9}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트9} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트9}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트9}:
+                        remove {접속카운트9} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트9}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+
+                if "%name of event-item%" is "&f%{접속카운트10}%":
+                    if {원정대구성원::*} does not contain {접속카운트10}:
+                        if {원정대최대인원} is bigger than size of {원정대구성원::*}:
+                            add {접속카운트10} to {원정대구성원::*}
+                            send "{@시스템}%{접속카운트10}%님이 원정대에 추가되었습니다" to {대표}
+                            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    else if {원정대구성원::*} contains {접속카운트10}:
+                        remove {접속카운트10} from {원정대구성원::*}
+                        send "{@시스템}%{접속카운트10}%님이 원정대에서 제거되었습니다" to {대표}
+                        play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+        
+            else if event-item is paper:
+                if size of {원정대구성원::*} is {원정대최대인원}:
+                    close {대표}'s inventory
+                    delete {투표수2}
+                    console command "clear %{대표}% paper"
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil5'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:12" with volume 0.2 to all players
+                    send "{@시스템}&e원정대 구성원 : %{원정대구성원::*}%" to all players
+                    delete {원정대찬성투표}
+                    delete {원정대반대투표}
+                    wait 60 tick
+                    console command "item replace entity @a armor.chest with air"
+                    send "{@시스템}&e3초후 원정대 출발 찬반투표를 시작합니다" to all players
+                    play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    wait 1 second
+                    send "{@시스템}&e2초후 원정대 출발 찬반투표를 시작합니다" to all players
+                    play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    wait 1 second
+                    send "{@시스템}&e1초후 원정대 출발 찬반투표를 시작합니다" to all players
+                    play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+                    wait 1 second
+                    
+                    give 1 paper named "&f원정대 찬반투표" to all players
+                    set {찬반Timer::%uuid of player%} to 300
+                    set {찬반MaxTimer::%uuid of player%} to 300
+                    create bossbar titled "&f[&9투표까지 남은 시간: &b%{찬반Timer::%uuid of player%}%&9초&f]" and id "찬반타이머" for all players with progress 100 with colors blue with style segmented 10
+
+    if inventory name is "&c멀린을 지목하세요.":
+        if event-item is not air:
+            if "%name of event-item%" is "&f%{접속카운트1}%":
+                if {멀린캐릭터::*} contain {접속카운트1}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트1}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트2}%":
+                if {멀린캐릭터::*} contain {접속카운트2}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트2}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트3}%":
+                if {멀린캐릭터::*} contain {접속카운트3}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트3}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트4}%":
+                if {멀린캐릭터::*} contain {접속카운트4}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트4}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트5}%":
+                if {멀린캐릭터::*} contain {접속카운트5}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트5}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트6}%":
+                if {멀린캐릭터::*} contain {접속카운트6}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트6}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트7}%":
+                if {멀린캐릭터::*} contain {접속카운트7}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트7}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트8}%":
+                if {멀린캐릭터::*} contain {접속카운트8}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트8}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트9}%":
+                if {멀린캐릭터::*} contain {접속카운트9}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트9}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+            if "%name of event-item%" is "&f%{접속카운트10}%":
+                if {멀린캐릭터::*} contain {접속카운트10}:
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+                else if {멀린캐릭터::*} does not contain {접속카운트10}:
+                    
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil1'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {선::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    play sound "minecraft:3" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    loop 100 times:
+                        #send " " to {대표}
+                    console command "effect clear @a"
+                    
+                    close player's inventory
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+    
+    if inventory name is "&f세력 확인":#여기
+        if event-item is not air:
+            if "%name of event-item%" is "&f%{접속카운트1}%":
+                send "{@시스템}%{접속카운트1}%의 세력 : %{역할군이름::%{접속카운트1} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트2}%":
+                send "{@시스템}%{접속카운트2}%의 세력 : %{역할군이름::%{접속카운트2} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트3}%":
+                send "{@시스템}%{접속카운트3}%의 세력 : %{역할군이름::%{접속카운트3} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트4}%":
+                send "{@시스템}%{접속카운트4}%의 세력 : %{역할군이름::%{접속카운트4} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트5}%":
+                send "{@시스템}%{접속카운트5}%의 세력 : %{역할군이름::%{접속카운트5} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트6}%":
+                send "{@시스템}%{접속카운트6}%의 세력 : %{역할군이름::%{접속카운트6} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트7}%":
+                send "{@시스템}%{접속카운트7}%의 세력 : %{역할군이름::%{접속카운트7} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트8}%":
+                send "{@시스템}%{접속카운트8}%의 세력 : %{역할군이름::%{접속카운트8} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트9}%":
+                send "{@시스템}%{접속카운트9}%의 세력 : %{역할군이름::%{접속카운트9} parsed as player%}%"
+            if "%name of event-item%" is "&f%{접속카운트10}%":
+                send "{@시스템}%{접속카운트10}%의 세력 : %{역할군이름::%{접속카운트10} parsed as player%}%"
+            play sound "minecraft:block.stone_button.click_off" with pitch 2 to player
+            close player's inventory
+            remove paper named "&f세력 확인" from player
+
+on damage:
+    if attacker is entity:
+        cancel event
+
+every tick:
+    if {실패연출중움직이기금지} is true:
+        console command "tp %{접속카운트1}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트2}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트3}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트4}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트5}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트6}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트7}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트8}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트9}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트10}% 357.0 23 763.0 -65 20"
+        console command "tp %{관리자2}% 352.0 28 814 -90 90"
+    if {성공연출중움직이기금지} is true:
+        console command "tp %{접속카운트1}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트2}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트3}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트4}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트5}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트6}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트7}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트8}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트9}% 357.0 23 763.0 -65 20"
+        console command "tp %{접속카운트10}% 357.0 23 763.0 -65 20"
+        if {성공관리자2} is true:
+            console command "tp %{관리자2}% 355 28 746 -90 90"
+        else if {성공관리자2} is not true:
+            console command "tp %{관리자2}% 352.0 28 814 -90 90"
+
+command z성공실패투표다음:
+    trigger:
+        if player is op:
+            console command "clear @a paper"
+            add 0 to {원정대성공투표}
+            add 0 to {원정대실패투표}
+            delete {투표수3}
+            delete {성공관리자2}
+            console command "effect clear @a"
+            loop all players:
+                delete {성실Timer::%uuid of loop-player%}
+                delete {성실MaxTimer::%uuid of loop-player%}
+            remove bossbar "성실타이머"
+            console command "effect give @a darkness 3 1 true"
+            make {관리자1} run command "npc remove all" as op
+            delete {역할타이틀로확인}
+            wait 30 tick
+            send actionbar " " to all players
+            if {원정대실패투표} >= 1:
+                console command "time set 1830s"
+                wait 50 tick
+                console command "gamemode spectator @a"
+                
+                set {실패연출중움직이기금지} to true
+                wait 100 tick
+                wait 1 tick
+
+                #1
+                make {관리자1} run command "tp @s 355.5 18 747.5 0 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create a1" as op
+                make {관리자1} run command "npc skin %{원정대구성원::1}%" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 4" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #2
+                make {관리자1} run command "tp @s 353.5 18 747.5 0 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create a2" as op
+                make {관리자1} run command "npc skin %{원정대구성원::2}%" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 4" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #3
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "tp @s 355.5 18 745.5" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create a3" as op
+                    make {관리자1} run command "npc skin %{원정대구성원::3}%" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 4" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                
+                #4
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "tp @s 353.5 18 745.5" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create a4" as op
+                    make {관리자1} run command "npc skin %{원정대구성원::4}%" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 4" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                
+                #5
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "tp @s 355.5 18 743.5" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create a5" as op
+                    make {관리자1} run command "npc skin %{원정대구성원::5}%" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 4" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                
+                #mob1
+                make {관리자1} run command "tp @s 351.5 18 811.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b1" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #mob2
+                make {관리자1} run command "tp @s 353.5 18 811.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b2" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #mob3
+                make {관리자1} run command "tp @s 351.5 18 813.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b3" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+                
+                #mob4
+                make {관리자1} run command "tp @s 353.5 18 813.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b4" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+                
+                #mob5
+                make {관리자1} run command "tp @s 351.5 18 815.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b5" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #mob6
+                make {관리자1} run command "tp @s 353.5 18 815.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b6" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #mob7
+                make {관리자1} run command "tp @s 351.5 18 817.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b7" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                #mob8
+                make {관리자1} run command "tp @s 353.5 18 817.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b8" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                wait 1 tick
+                #set {연출중움직이기금지} to true
+                
+                {관리자1} command "item replace entity @e[name=a1] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a1] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a1] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b1] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a2] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a2] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a2] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b2] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a3] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a3] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a3] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b3] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a4] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a4] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a4] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b4] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a5] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a5] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a5] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b5] armor.head with stone_button"
+
+                make {관리자1} run command "tp @s 382 18 771 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a1" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                make {관리자1} run command "tp @s 382 18 772 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a2" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "tp @s 382 18 773 90 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a3" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "tp @s 378 18 777 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a4" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "tp @s 376 18 377 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a5" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+
+
+                wait 121 tick
+                wait 1 tick
+                make {관리자1} run command "tp @s 374 18 768" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel b1" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b2" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b3" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b4" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b5" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b6" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b7" as op
+                make {관리자1} run command "npc pathto here" as op
+                wait 2 tick
+                make {관리자1} run command "npc sel b8" as op
+                make {관리자1} run command "npc pathto here" as op
+
+                loop 100 times:
+                    #send " " to {관리자1}
+
+
+                wait 1 tick
+
+                wait 2 tick
+
+                make {관리자1} run command "tp @s 380 19 771 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a1" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                make {관리자1} run command "tp @s 380 19 772 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a2" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "tp @s 380 19 773 90 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a3" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "tp @s 378 19 775 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a4" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "tp @s 376 19 775 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a5" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+
+                
+                wait 40 tick
+                
+                {관리자1} command "item replace entity @e[name=a1] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a2] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a3] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a4] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a5] weapon.mainhand with cooked_beef"
+
+                wait 10 tick
+                
+                loop 7 times:
+                    console command "playsound minecraft:entity.generic.eat ambient @a 376 19 775 100"
+                    wait 4 tick
+                wait 7 tick
+                loop 7 times:
+                    console command "playsound minecraft:entity.generic.eat ambient @a 376 19 775 100"
+                    wait 4 tick
+                
+                wait 1 tick
+                wait 2 tick
+                #
+                make {관리자1} run command "tp @s 347 18 734" as op
+                make {관리자1} run command "npc sel a1" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel a2" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel a3" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel a4" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel a5" as op
+                make {관리자1} run command "npc pathto here" as op
+
+                #{관리자1} command "effect give @e[name=b1] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #관리자1} command "effect give @e[name=b2] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #{관리자1} command "effect give @e[name=b3] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #{관리자1} command "effect give @e[name=b4] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #{관리자1} command "effect give @e[name=b5] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #{관리자1} command "effect give @e[name=b6] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #{관리자1} command "effect give @e[name=b7] minecraft:speed infinite 10 true"
+                #wait 1 tick
+                #{관리자1} command "effect give @e[name=b8] minecraft:speed infinite 10 true"
+
+                #make {관리자1} run command "npc sel b1" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b2" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b3" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b4" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b5" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b6" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b7" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                #make {관리자1} run command "npc sel b8" as op
+                #make {관리자1} run command "sentinel addtarget npc:a1" as op
+
+                loop 100 times:
+                    #send " " to {관리자1}
+
+                wait 44 tick
+                wait 1 tick
+                {관리자1} command "item replace entity @e[name=a1] weapon.mainhand with air"
+                {관리자1} command "item replace entity @e[name=a2] weapon.mainhand with air"
+                {관리자1} command "item replace entity @e[name=a3] weapon.mainhand with air"
+                {관리자1} command "item replace entity @e[name=a4] weapon.mainhand with air"
+                {관리자1} command "item replace entity @e[name=a5] weapon.mainhand with air"
+                make {관리자1} run command "tp @s 358 18 747" as op
+                make {관리자1} run command "npc sel b1" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b2" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b3" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b4" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b5" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b6" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b7" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b8" as op
+                make {관리자1} run command "npc pathto here" as op
+                
+                wait 3 second
+                console command "effect give @a darkness 5 1"
+
+                wait 3 second
+                delete {실패연출중움직이기금지}
+                console command "npc remove all"
+                console command "tp %{관리자1}% 360 18 571 0 0"
+                wait 1 tick
+                make {관리자1} run command "npc create 설정" as op
+                make {관리자1} run command "npc skin notch" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                console command "tp %{관리자::1}% 405 21 345"
+                console command "tp %{관리자::2}% 405 21 346"
+                console command "tp %{관리자::3}% 405 21 347"
+                console command "tp %{관리자::4}% 405 21 348"
+                console command "tp %{접속카운트1}% 376 21 344"
+                console command "tp %{접속카운트2}% 376 21 350"
+                console command "tp %{접속카운트3}% 381 21 354"
+                console command "tp %{접속카운트4}% 386 21 354"
+                console command "tp %{접속카운트5}% 391 21 354"
+                console command "tp %{접속카운트6}% 396 21 350"
+                console command "tp %{접속카운트7}% 396 21 344"
+                console command "tp %{접속카운트8}% 391 21 340"
+                console command "tp %{접속카운트9}% 386 21 340"
+                console command "tp %{접속카운트10}% 381 21 340"
+                console command "time set day"
+                add 1 to {원정실패}
+                loop all players:
+                    wipe loop-player's sidebar
+                console command "gamemode survival @a"
+                if {원정실패} >= 3:
+                    console command "effect give @a darkness infinite 1 true"
+                    wait 50 tick
+                     
+                    #delete {기본bgm재생}
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "stopsound @a"
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil4'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    console command "tp %{관리자1}% 360 18 571 0 0"
+                    wait 1 tick
+                    make {관리자1} run command "npc create 설정" as op
+                    make {관리자1} run command "npc skin notch" as op
+                    console command "effect clear @a"
+                    
+                    loop 100 times:
+                        #send " " to {관리자1}
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+                else if 3 >= {원정실패}:
+                    send title "∵ " to all players for 5 second
+                    play sound "minecraft:6" with volume 0.4 to all players
+                    wait 8 second
+                    delete {투표수1}
+                    set {역할타이틀로확인} to true
+                    if {요정여부} is true:
+                        if {요정} = {원정횟수}:
+                            
+                            send "{@시스템} 당신은 요정입니다. ""세력 확인"" 종이를 우클릭하여 지목한 플레이어의 세력을 확인하세요." to {요정사람} parsed as player
+                            give 1 paper named "&f세력 확인" to {요정사람} parsed as player
+                            play sound "minecraft:entity.experience_orb.pickup" to {요정사람} parsed as player
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:13" with volume 0.2 to all players
+                    wait 3 seconds
+                    console command "item replace entity @a armor.chest with minecraft:air"
+
+                    give 1 paper named "&f대표 선정" to all players
+                    set {대표Timer::%uuid of player%} to 100
+                    set {대표MaxTimer::%uuid of player%} to 100
+                    create bossbar titled "&f[&9투표까지 남은 시간: &b%{대표Timer::%uuid of player%}%&9초&f]" and id "대표타이머" for all players with progress 100 with colors blue with style segmented 10
+
+            else:
+                #원정성공연출
+                console command "time set day"
+                wait 50 tick
+                console command "gamemode spectator @a"
+                
+                set {성공관리자2} to true
+                set {성공연출중움직이기금지} to true
+                wait 100 tick
+                wait 1 tick
+
+                #1
+                make {관리자1} run command "tp @s 355.5 18 747.5 0 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create a1" as op
+                make {관리자1} run command "npc skin %{원정대구성원::1}%" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 4" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+                make {관리자1} run command "sentinel health 100" as op
+                make {관리자1} run command "tp @s 351.5 18 811.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b1" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+                make {관리자1} run command "sentinel health 20" as op
+
+                #2
+                make {관리자1} run command "tp @s 353.5 18 747.5 0 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create a2" as op
+                make {관리자1} run command "npc skin %{원정대구성원::2}%" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 4" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+                make {관리자1} run command "sentinel health 100" as op
+                make {관리자1} run command "tp @s 353.5 18 811.5 180 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc create b2" as op
+                make {관리자1} run command "npc type zombie" as op
+                make {관리자1} run command "npc name" as op
+                make {관리자1} run command "npc speed 5" as op
+                make {관리자1} run command "trait sentinel" as op
+                make {관리자1} run command "sentinel damage 0" as op
+                make {관리자1} run command "sentinel health 20" as op
+
+                #3
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "tp @s 355.5 18 745.5" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create a3" as op
+                    make {관리자1} run command "npc skin %{원정대구성원::3}%" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 4" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                    make {관리자1} run command "sentinel health 100" as op
+                    make {관리자1} run command "tp @s 351.5 18 813.5 180 0" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create b3" as op
+                    make {관리자1} run command "npc type zombie" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 5" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                    make {관리자1} run command "sentinel health 20" as op
+                
+                #4
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "tp @s 353.5 18 745.5" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create a4" as op
+                    make {관리자1} run command "npc skin %{원정대구성원::4}%" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 4" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                    make {관리자1} run command "sentinel health 100" as op
+                    make {관리자1} run command "tp @s 353.5 18 813.5 180 0" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create b4" as op
+                    make {관리자1} run command "npc type zombie" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 5" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                    make {관리자1} run command "sentinel health 20" as op
+                
+                #5
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "tp @s 355.5 18 743.5" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create a5" as op
+                    make {관리자1} run command "npc skin %{원정대구성원::5}%" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 4" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                    make {관리자1} run command "sentinel health 100" as op
+                    make {관리자1} run command "tp @s 351.5 18 815.5 180 0" as op
+                    wait 5 tick
+                    make {관리자1} run command "npc create b5" as op
+                    make {관리자1} run command "npc type zombie" as op
+                    make {관리자1} run command "npc name" as op
+                    make {관리자1} run command "npc speed 5" as op
+                    make {관리자1} run command "trait sentinel" as op
+                    make {관리자1} run command "sentinel damage 0" as op
+                    make {관리자1} run command "sentinel health 20" as op
+
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                wait 1 tick
+                #set {연출중움직이기금지} to true
+                
+                {관리자1} command "item replace entity @e[name=a1] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a1] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a1] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b1] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a2] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a2] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a2] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b2] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a3] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a3] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a3] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b3] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a4] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a4] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a4] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b4] armor.head with stone_button"
+
+                {관리자1} command "item replace entity @e[name=a5] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a5] armor.chest with iron_chestplate"
+                {관리자1} command "item replace entity @e[name=a5] armor.feet with iron_boots"
+                {관리자1} command "item replace entity @e[name=b5] armor.head with stone_button"
+
+                delete {손흔들기변수::*}
+                loop all entities:
+                    if name of loop-entities is "a1" or "a2" or "a3" or "a4" or "a5" :
+                        add loop-entities to {손흔들기변수::*}
+
+                make {관리자1} run command "tp @s 382 18 771 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a1" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                make {관리자1} run command "tp @s 382 18 772 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a2" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "tp @s 382 18 773 90 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a3" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "tp @s 378 18 777 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a4" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "tp @s 376 18 377 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a5" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+
+
+                wait 91 tick
+                delete {성공관리자2}
+                wait 61 tick
+                make {관리자1} run command "tp @s 369 18 774 -90 0" as op
+                wait 5 tick
+                make {관리자1} run command "npc sel b1" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b2" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b3" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b4" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b5" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b6" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b7" as op
+                make {관리자1} run command "npc pathto here" as op
+                make {관리자1} run command "npc sel b8" as op
+                make {관리자1} run command "npc pathto here" as op
+
+                loop 100 times:
+                    #send " " to {관리자1}
+
+
+                wait 1 tick
+
+                wait 2 tick
+
+                make {관리자1} run command "tp @s 380 19 771 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a1" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                make {관리자1} run command "tp @s 380 19 772 90 0" as op
+                wait 10 tick
+                make {관리자1} run command "npc sel a2" as op
+                make {관리자1} run command "npc pathto here" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "tp @s 380 19 773 90 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a3" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "tp @s 378 19 775 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a4" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+                
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "tp @s 376 19 775 180 0" as op
+                    wait 10 tick
+                    make {관리자1} run command "npc sel a5" as op
+                    make {관리자1} run command "npc pathto here" as op
+                    loop 100 times:
+                        #send " " to {관리자1}
+
+                
+                wait 40 tick
+                
+                {관리자1} command "item replace entity @e[name=a1] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a2] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a3] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a4] weapon.mainhand with cooked_beef"
+                {관리자1} command "item replace entity @e[name=a5] weapon.mainhand with cooked_beef"
+
+                wait 10 tick
+                
+                loop 7 times:
+                    console command "playsound minecraft:entity.generic.eat ambient @a 376 19 775 100"
+                    wait 4 tick
+                wait 7 tick
+                loop 7 times:
+                    console command "playsound minecraft:entity.generic.eat ambient @a 376 19 775 100"
+                    wait 4 tick
+                
+                wait 1 tick
+                console command "effect give @e[name=a1] minecraft:speed 15 10 true"
+                console command "effect give @e[name=a2] minecraft:speed 15 10 true"
+                console command "effect give @e[name=a3] minecraft:speed 15 10 true"
+                console command "effect give @e[name=a4] minecraft:speed 15 10 true"
+                console command "effect give @e[name=a5] minecraft:speed 15 10 true"
+                {관리자1} command "effect give @e[name=b1] minecraft:speed infinite 10 true"
+                {관리자1} command "effect give @e[name=b2] minecraft:speed infinite 10 true"
+                {관리자1} command "effect give @e[name=b3] minecraft:speed infinite 10 true"
+                {관리자1} command "effect give @e[name=b4] minecraft:speed infinite 10 true"
+                {관리자1} command "effect give @e[name=b5] minecraft:speed infinite 10 true"
+                
+                make {관리자1} run command "npc sel a1" as op
+                make {관리자1} run command "sentinel addtarget npc:b2" as op
+                #console command "effect give @e[name=a1] minecraft:speed 15 5 true"
+
+                make {관리자1} run command "npc sel b1" as op
+                make {관리자1} run command "sentinel addtarget npc:a2" as op
+                #console command "effect give @e[name=b1] minecraft:speed 15 5 true"
+
+                make {관리자1} run command "npc sel a2" as op
+                make {관리자1} run command "sentinel addtarget npc:b1" as op
+                #console command "effect give @e[name=a2] minecraft:speed 15 5 true"
+
+                make {관리자1} run command "npc sel b2" as op
+                make {관리자1} run command "sentinel addtarget npc:a1" as op
+                #console command "effect give @e[name=a2] minecraft:speed 15 5 true"
+
+                if size of {원정대구성원::*} >= 3:
+                    make {관리자1} run command "npc sel a3" as op
+                    make {관리자1} run command "sentinel addtarget npc:b3" as op
+                    #console command "effect give @e[name=a3] minecraft:speed 15 5 true"
+
+                    make {관리자1} run command "npc sel b3" as op
+                    make {관리자1} run command "sentinel addtarget npc:a3" as op
+                    #console command "effect give @e[name=b3] minecraft:speed 15 5 true"
+
+                if size of {원정대구성원::*} >= 4:
+                    make {관리자1} run command "npc sel a4" as op
+                    make {관리자1} run command "sentinel addtarget npc:b4" as op
+                    #console command "effect give @e[name=a4] minecraft:speed 15 5 true"
+
+                    make {관리자1} run command "npc sel b4" as op
+                    make {관리자1} run command "sentinel addtarget npc:a4" as op
+                    #console command "effect give @e[name=b4] minecraft:speed 15 5 true"
+
+                if size of {원정대구성원::*} >= 5:
+                    make {관리자1} run command "npc sel a5" as op
+                    make {관리자1} run command "sentinel addtarget npc:b5" as op
+                    #console command "effect give @e[name=a5] minecraft:speed 15 5 true"
+
+                    make {관리자1} run command "npc sel b5" as op
+                    make {관리자1} run command "sentinel addtarget npc:a5" as op
+                    #console command "effect give @e[name=b5] minecraft:speed 15 5 true"
+                
+                loop 100 times:
+                    #send " " to {관리자1}
+
+                wait 1 second
+                {관리자1} command "item replace entity @e[name=a1] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a2] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a3] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a4] weapon.mainhand with iron_sword"
+                {관리자1} command "item replace entity @e[name=a5] weapon.mainhand with iron_sword"
+                
+                wait 30 tick
+
+                loop 3 times:
+                    #데미지
+                    make {관리자1} run command "npc sel a1" as op
+                    make {관리자1} run command "npc hurt 8" as op
+                    make {관리자1} run command "npc sel a2" as op
+                    make {관리자1} run command "npc hurt 8" as op
+                    if size of {원정대구성원::*} >= 3:
+                        make {관리자1} run command "npc sel a3" as op
+                        make {관리자1} run command "npc hurt 8" as op
+                    if size of {원정대구성원::*} >= 4:
+                        make {관리자1} run command "npc sel a4" as op
+                        make {관리자1} run command "npc hurt 8" as op
+                    if size of {원정대구성원::*} >= 5:
+                        make {관리자1} run command "npc sel a5" as op
+                        make {관리자1} run command "npc hurt 8" as op
+                    
+                    
+                    wait 12 tick
+
+                    make {손흔들기변수::*} swing their main hand
+                    
+                    wait 3 tick
+                    
+                    make {관리자1} run command "npc sel b1" as op
+                    make {관리자1} run command "npc hurt 8" as op
+                    make {관리자1} run command "npc sel b2" as op
+                    make {관리자1} run command "npc hurt 8" as op
+                    if size of {원정대구성원::*} >= 3:
+                        make {관리자1} run command "npc sel b3" as op
+                        make {관리자1} run command "npc hurt 8" as op
+                    if size of {원정대구성원::*} >= 4:
+                        make {관리자1} run command "npc sel b4" as op
+                        make {관리자1} run command "npc hurt 8" as op
+                    if size of {원정대구성원::*} >= 5:
+                        make {관리자1} run command "npc sel b5" as op
+                        make {관리자1} run command "npc hurt 8" as op
+                    
+                    wait 15 tick
+
+                wait 3 second
+                delete {성공연출중움직이기금지}
+                console command "npc remove all"
+                console command "tp %{관리자1}% 360 18 571 0 0"
+                wait 1 tick
+                make {관리자1} run command "npc create 설정" as op
+                make {관리자1} run command "npc skin notch" as op
+                loop 100 times:
+                    #send " " to {관리자1}
+                add 1 to {원정성공}
+                loop all players:
+                    wipe loop-player's sidebar
+                console command "gamemode survival @a"
+                console command "tp %{관리자::1}% 405 21 345"
+                console command "tp %{관리자::2}% 405 21 346"
+                console command "tp %{관리자::3}% 405 21 347"
+                console command "tp %{관리자::4}% 405 21 348"
+                console command "tp %{접속카운트1}% 376 21 344"
+                console command "tp %{접속카운트2}% 376 21 350"
+                console command "tp %{접속카운트3}% 381 21 354"
+                console command "tp %{접속카운트4}% 386 21 354"
+                console command "tp %{접속카운트5}% 391 21 354"
+                console command "tp %{접속카운트6}% 396 21 350"
+                console command "tp %{접속카운트7}% 396 21 344"
+                console command "tp %{접속카운트8}% 391 21 340"
+                console command "tp %{접속카운트9}% 386 21 340"
+                console command "tp %{접속카운트10}% 381 21 340"
+                send title "∴ " to all players for 5 second
+                play sound "minecraft:5" with volume 0.3 to all players
+                wait 8 second
+                if {원정성공} >= 3:
+                    send title "&e당신은 &c암살자&e 입니다. 멀린을 지목하세요." with subtitle "&c멀린은 지목한 즉시 투표됩니다." to {암살자캐릭터::*} for 3 second
+                    set {암살자종이} to {암살자캐릭터::1}
+                    give 1 paper named "&c멀린을 지목하세요." to {암살자종이}
+
+                else if 3 > {원정성공}:
+                    set {역할타이틀로확인} to true
+                    if {요정여부} is true:
+                        if {요정} = {원정횟수}:
+                            
+                            send "{@시스템} 당신은 요정입니다. ""세력 확인"" 종이를 우클릭하여 지목한 플레이어의 세력을 확인하세요." to {요정사람} parsed as player
+                            give 1 paper named "&f세력 확인" to {요정사람} parsed as player
+                            play sound "minecraft:entity.experience_orb.pickup" to {요정사람} parsed as player
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:13" with volume 0.2 to all players
+                    wait 3 seconds
+                    console command "item replace entity @a armor.chest with minecraft:air"
+                    give 1 paper named "&f대표 선정" to all players
+                    set {대표Timer::%uuid of player%} to 100
+                    set {대표MaxTimer::%uuid of player%} to 100
+                    create bossbar titled "&f[&9투표까지 남은 시간: &b%{대표Timer::%uuid of player%}%&9초&f]" and id "대표타이머" for all players with progress 100 with colors blue with style segmented 10
+
+command z찬반투표다음:
+    trigger:
+        if player is op:
+            console command "clear @a paper"
+            add 0 to {원정대찬성투표}
+            add 0 to {원정대반대투표}
+            delete {투표수2}
+            loop all players:
+                delete {찬반Timer::%uuid of loop-player%}
+                delete {찬반MaxTimer::%uuid of loop-player%}
+            remove bossbar "찬반타이머"
+            if {원정대찬성투표} > {원정대반대투표}:
+                #원정찬성됨
+                set {원정연속반대} to 0
+                delete {투표수3}
+                add 1 to {원정횟수}
+                add 1 to {라운드1}
+                play sound "minecraft:2" with volume 0.4 to all players
+                wait 2 second
+                loop all players:
+                    wipe loop-player's sidebar
+                console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil6'}]"
+                console command "stopsound @a * minecraft:item.armor.equip_generic"
+                play sound "minecraft:entity.experience_orb.pickup" to all players
+                wait 60 tick
+                console command "item replace entity @a armor.chest with air"
+                set {_원정대투표종이주기1} to {원정대구성원::1}
+                set {_원정대투표종이주기2} to {원정대구성원::2}
+                set {_원정대투표종이주기3} to {원정대구성원::3}
+                set {_원정대투표종이주기4} to {원정대구성원::4}
+                set {_원정대투표종이주기5} to {원정대구성원::5}
+                give 1 paper named "&f원정대 투표" to {_원정대투표종이주기1} parsed as player
+                give 1 paper named "&f원정대 투표" to {_원정대투표종이주기2} parsed as player
+                give 1 paper named "&f원정대 투표" to {_원정대투표종이주기3} parsed as player
+                give 1 paper named "&f원정대 투표" to {_원정대투표종이주기4} parsed as player
+                give 1 paper named "&f원정대 투표" to {_원정대투표종이주기5} parsed as player
+                delete {원정대성공투표}
+                delete {원정대실패투표}
+                set {성실Timer::%uuid of player%} to 100
+                set {성실MaxTimer::%uuid of player%} to 100
+                create bossbar titled "&f[&9투표까지 남은 시간: &b%{성실Timer::%uuid of player%}%&9초&f]" and id "성실타이머" for all players with progress 100 with colors blue with style segmented 10
+
+            if {원정대반대투표} >= {원정대찬성투표}:
+                #원정반대됨
+                add 1 to {원정연속반대}
+                loop all players:
+                    wipe loop-player's sidebar
+                if {원정연속반대} < 5:
+                    delete {투표수1}
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil8'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:15" with volume 0.2 to all players
+                    wait 60 tick
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil2'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:13" with volume 0.2 to all players
+                    wait 3 seconds
+                    console command "item replace entity @a armor.chest with minecraft:air"
+                    give 1 paper named "&f대표 선정" to all players
+                    set {대표Timer::%uuid of player%} to 100
+                    set {대표MaxTimer::%uuid of player%} to 100
+                    create bossbar titled "&f[&9투표까지 남은 시간: &b%{대표Timer::%uuid of player%}%&9초&f]" and id "대표타이머" for all players with progress 100 with colors blue with style segmented 10
+
+                else if {원정연속반대} >= 5:
+                     
+                    #delete {기본bgm재생}
+                    console command "stopsound @a"
+                    delete {역할타이틀로확인}
+                    delete {역할확인종이}
+                    console command "item replace entity @a armor.head with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'head',camera_overlay:'misc/fullil3'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    loop {악::*}:
+                        add 1 to {게임승리횟수::%loop-value%}
+                    console command "gamemode spectator @a"
+                    play sound "minecraft:4" with volume 0.4 to all players
+                    console command "tp @a 360 20 583"
+                    console command "tp %{관리자1}% 360 18 571 0 0"
+                    wait 1 tick
+                    make {관리자1} run command "npc create 설정" as op
+                    make {관리자1} run command "npc skin notch" as op
+                    console command "effect clear @a"
+                    
+                    console command "clear @a paper"
+                    wait 160 tick
+                    console command "item replace entity @a armor.head with air"
+                    console command "gamemode survival @a"
+
+command z대표투표다음:
+    trigger:
+        if player is op:
+            console command "clear @a paper"
+            delete {투표수1}
+            loop all players:
+                delete {대표Timer::%uuid of loop-player%}
+                delete {대표MaxTimer::%uuid of loop-player%}
+            remove bossbar "대표타이머"
+            delete {대표}
+            set {_topValue} to -1
+            loop all players:
+                set {_uuid} to uuid of loop-player
+                set {_value} to {득표수::%{_uuid}%}
+                if {_value} is set:
+                    if {_value} > {_topValue}: 
+                        set {_topValue} to {_value}
+                        set {_topPlayers::*} to loop-player
+                    else if {_value} = {_topValue}:
+                        add loop-player to {_topPlayers::*}
+            if {_topPlayers::*} is set:
+
+                if size of {_topPlayers::*} = 1:
+                    set {대표} to {_topPlayers::1}
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil4'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:11" with volume 0.1 to all players
+
+                else if size of {_topPlayers::*} is bigger than 1:
+                    send "{@시스템}&e최다 득표를 받은 플레이어가 2명 이상입니다%nl%{@시스템}&b3초후 최다 득표자중 랜덤으로 대표를 선정합니다" to all players
+                    play sound "minecraft:entity.experience_orb.pickup" to all players
+                    wait 1 second
+                    send "{@시스템}&b2초후 최다 득표자중 랜덤으로 대표를 선정합니다" to all players
+                    play sound "minecraft:entity.experience_orb.pickup" to all players
+                    wait 1 second
+                    send "{@시스템}&b1초후 최다 득표자중 랜덤으로 대표를 선정합니다" to all players
+                    play sound "minecraft:entity.experience_orb.pickup" to all players
+                    wait 1 second
+                    send subtitle "" to all players
+                    loop 24 times:
+                        set {_랜덤임시} to random element out of {_topPlayers::*}
+                        send title "&e%{_랜덤임시}%" to all players with fade in 0 ticks
+                        play sound "minecraft:entity.experience_orb.pickup" to all players
+                        wait 2 tick
+                    set {대표} to random element out of {_topPlayers::*}
+                    send title " " to all players with fade in 0 ticks
+                    console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil4'}]"
+                    console command "stopsound @a * minecraft:item.armor.equip_generic"
+                    play sound "minecraft:11" with volume 0.1 to all players
+                send "{@시스템}대표 : %{대표}%" to all players
+                delete {_topPlayers::*}
+                delete {득표수::*}
+                wait 60 tick
+                console command "item replace entity @a armor.chest with minecraft:air"
+                #원정대구성 GUI 열기
+                delete {원정대구성원::*}
+                console command "item replace entity @a armor.chest with minecraft:light_gray_stained_glass_pane[minecraft:equippable={slot:'chest',camera_overlay:'misc/addil7'}]"
+                console command "stopsound @a * minecraft:item.armor.equip_generic"
+                play sound "minecraft:10" with volume 0.1 to all players
+                send "{@시스템}&b대표가 원정대를 구성할때까지 기다려주세요" to all players
+                if {요정여부} is true:
+                    delete {요정사람}
+                    if {대표} is {접속카운트1}:
+                        set {요정사람} to {접속카운트2}
+                    if {대표} is {접속카운트2}:
+                        set {요정사람} to {접속카운트3}
+                    if {대표} is {접속카운트3}:
+                        set {요정사람} to {접속카운트4}
+                    if {대표} is {접속카운트4}:
+                        set {요정사람} to {접속카운트5}
+                    if {대표} is {접속카운트5}:
+                        set {요정사람} to {접속카운트6}
+                    if {대표} is {접속카운트6}:
+                        set {요정사람} to {접속카운트7}
+                    if {대표} is {접속카운트7}:
+                        set {요정사람} to {접속카운트8}
+                    if {대표} is {접속카운트8}:
+                        set {요정사람} to {접속카운트9}
+                    if {대표} is {접속카운트9}:
+                        set {요정사람} to {접속카운트10}
+                    if {대표} is {접속카운트10}:
+                        set {요정사람} to {접속카운트1}
+                loop all players:
+                    wipe loop-player's sidebar
+                give 1 paper named "&f원정대 구성" to {대표}
+                if {접속인원수카운트} is 5:
+                    if {원정횟수} is 0:
+                        set {원정대최대인원} to 2
+                    if {원정횟수} is 1:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 2:
+                        set {원정대최대인원} to 2
+                    if {원정횟수} is 3:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 4:
+                        set {원정대최대인원} to 3
+                if {접속인원수카운트} is 6:
+                    if {원정횟수} is 0:
+                        set {원정대최대인원} to 2
+                    if {원정횟수} is 1:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 2:
+                        set {원정대최대인원} to 4
+                    if {원정횟수} is 3:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 4:
+                        set {원정대최대인원} to 4
+                if {접속인원수카운트} is 7:
+                    if {원정횟수} is 0:
+                        set {원정대최대인원} to 2
+                    if {원정횟수} is 1:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 2:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 3:
+                        set {원정대최대인원} to 4
+                    if {원정횟수} is 4:
+                        set {원정대최대인원} to 4
+                if {접속인원수카운트} is 8 or 9 or 10:
+                    if {원정횟수} is 0:
+                        set {원정대최대인원} to 3
+                    if {원정횟수} is 1:
+                        set {원정대최대인원} to 4
+                    if {원정횟수} is 2:
+                        set {원정대최대인원} to 4
+                    if {원정횟수} is 3:
+                        set {원정대최대인원} to 5
+                    if {원정횟수} is 4:
+                        set {원정대최대인원} to 5
+                wait 60 tick
+                console command "item replace entity @a armor.chest with minecraft:air"

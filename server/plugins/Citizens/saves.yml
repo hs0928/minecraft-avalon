@@ -1,0 +1,60 @@
+# Citizens NPC Storage
+
+last-created-npc-id: 2668
+npc:
+  '2668':
+    metadata:
+      cached-skin-uuid: 069a79f4-44e9-4726-a5be-fca90e38aaf5
+      cached-skin-uuid-name: notch
+    name: 설정
+    uuid: 5e874d44-e6f6-4099-9aba-5b822add96a8
+    traits:
+      skintrait:
+        signature: lZlWHeHa0eTShQSJGGJK5sFUc6RgLenAO5t7rmHSWGZGZGQB7sQt7mcZD6M81VoURGERkf2vJMU1gWJX+G7nAkhr22Cj3dLocKizCv7QFcN/T72UZqaekGGMtPxe6O6EQaMjI2/9J98pvd+EzBH8ZISmKl/SoF+1P5yQLZked7GcJsYxUkNRa/zg110ioxmZI3CRLZOF+kH4InRPIH7RiW2+aBGhXEn7RROAIlObOLHdgENeXKeaSKiGLnDCs8nBiDOskA/IJqqnH9Z+BSsONnUNxQkuOW1RwIEVryppepixgF/giRyZrUfvH3SCalpqYBILJE1znFE7UjTkkP2X7ghkCIuHiucp2aHlMjndGuFXPbRMUEjcCNkfLvAXkG4TYN5xeg2dSXrn2nxxmwxVSV5c4gSarq2ir4F3CK1pAok1GVTn3NVeRdnEgogJn+qaJxBooSoEwNccqn5nyo5Hjr2nRSGum3wwNizuGzderBJfXDNtshlyIucZ0oViQ4W/ko+dfnP1OzyB9MCdhIFgRDCrNLMjq5gWWcDw2VQWY/Aa+jII5EjLqcwCN0f/VLx8Umw+N2d7pB8ysLO15ql+u4iaPeKkrVEP/MtehgzpNga5qYk0D7odzcyXnd3T0LjnKAaqvZPv9gwt89VrLVNDYUWto/9QNr7PyQw/OMlJddw=
+        skinName: notch
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc0NTc1NjM5MzUyOSwKICAicHJvZmlsZUlkIiA6ICIwNjlhNzlmNDQ0ZTk0NzI2YTViZWZjYTkwZTM4YWFmNSIsCiAgInByb2ZpbGVOYW1lIiA6ICJOb3RjaCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8yOTIwMDlhNDkyNWI1OGYwMmM3N2RhZGMzZWNlZjA3ZWE0Yzc0NzJmNjRlMGZkYzMyY2U1NTIyNDg5MzYyNjgwIgogICAgfQogIH0KfQ==
+      type: PLAYER
+      spawned: true
+      location:
+        bodyYaw: 0.0
+        world: world
+        x: 360.5
+        y: 18.0
+        z: 571.5
+        yaw: 0.0
+        pitch: 0.0
+      owner:
+        uuid: 072bd984-ca3d-4ff5-b563-5592011a9e12
+    traitnames: skintrait,type,scoreboardtrait,inventory,spawned,location,owner
+    navigator:
+      speedmodifier: 1.0
+      avoidwater: false
+      usedefaultstuckaction: false
+  '2667':
+    metadata:
+      cached-skin-uuid: 069a79f4-44e9-4726-a5be-fca90e38aaf5
+      cached-skin-uuid-name: notch
+    name: 설정
+    uuid: e90760fb-4712-492a-bb25-79f4b5efb3da
+    traits:
+      skintrait:
+        signature: ExRI+4CN03AHzNkdfwj2ZUNLV04UvImOHOdRDdNi7oK9dM8TNEn8+SaFcFXi00Ztx4a6jp6SS6BwmnYpg1RsXmc5kgEHAEb/uLuf7N0yw/9X1/SBvhn4X0HOE2cePL4MEJ/mnCLgo5mkOrPXc2upbv4C8PInqYNEhksaC81kZLhlfvU78Ocv/MBGcqTq/i2BWfyWZEPc0QAken/ifeRoadUeJZuzeDtpywkabalD6b/1gxJBVaGVwnCR0uI+vokKsbuYn3o0vIx/u2YzbTrBKeCmOOqc26dN1mu0AMhhj9i71KP8lwHVJ7ZPu5QKzsa//Nk4pj6EYyqpj0rLIoY7gGkxHfAOTAWCWh7SzUM76JrWDiKCW9WA7j4GPCE2E4ORCzyYjgievWkbt0pI9aXFRpUUHJKjfnPVSfcEMJGT6+UYPdjvHvR6Yt5HBLxrknsZZo/7tBeBmO78UYDLsxoPE+kbiJsaT6CTrTctYy5DETMDE48v9WzODXb1z8j4nLh6cPPYv95656+F8trVJC+H879HJd7rgNBJdFHJvPScc3ezXk03Sm0iOrsaOIbww7NsZAU/+1SERmC+pIxuFkGzrBwVOigJoPiINBIGR/OwfzaKUAciptq2+IR/VWU4VhFSMW6+qJdrKDzyOHrOgunp3Kv6PIKBwaqZcb8HYwmZ0hc=
+        skinName: notch
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc0NTc1NjI1MzY1OCwKICAicHJvZmlsZUlkIiA6ICIwNjlhNzlmNDQ0ZTk0NzI2YTViZWZjYTkwZTM4YWFmNSIsCiAgInByb2ZpbGVOYW1lIiA6ICJOb3RjaCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8yOTIwMDlhNDkyNWI1OGYwMmM3N2RhZGMzZWNlZjA3ZWE0Yzc0NzJmNjRlMGZkYzMyY2U1NTIyNDg5MzYyNjgwIgogICAgfQogIH0KfQ==
+      type: PLAYER
+      spawned: true
+      location:
+        bodyYaw: 0.0
+        world: world
+        x: 360.5
+        y: 18.0
+        z: 571.5
+        yaw: 0.0
+        pitch: 0.0
+      owner:
+        uuid: 072bd984-ca3d-4ff5-b563-5592011a9e12
+    traitnames: skintrait,type,scoreboardtrait,inventory,spawned,location,owner
+    navigator:
+      speedmodifier: 1.0
+      avoidwater: false
+      usedefaultstuckaction: false

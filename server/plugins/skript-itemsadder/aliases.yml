@@ -1,0 +1,68 @@
+items:
+  icon cancel: _iainternal:icon_cancel
+  icon right blue: _iainternal:icon_right_blue
+  icon search: _iainternal:icon_search
+  icon next orange: _iainternal:icon_next_orange
+  '1': test:1
+  '2': test:2
+  '3': test:3
+  icon back orange: _iainternal:icon_back_orange
+  '4': test:4
+  icon arrow chest: _iainternal:icon_arrow_chest
+  '5': test:5
+  '6': test:6
+  '7': test:7
+  '8': test:8
+  '9': test:9
+  icon left blue: _iainternal:icon_left_blue
+  '10': test:10
+  c10: test:c10
+  c1: test:c1
+  c2: test:c2
+  c3: test:c3
+  c4: test:c4
+  c5: test:c5
+  c6: test:c6
+  c7: test:c7
+  c8: test:c8
+  c9: test:c9
+  card1: ab:card1
+  card2: ab:card2
+  card3: ab:card3
+  card4: ab:card4
+  card5: ab:card5
+  card6: ab:card6
+  card7: ab:card7
+  card8: ab:card8
+  card9: ab:card9
+  card10: ab:card10
+  silpae: ab:silpae
+  chansung: ab:chansung
+  sunggong: ab:sunggong
+  bandae: ab:bandae
+  magic table: furniturepack:magic_table
+  magic potions: furniturepack:magic_potions
+  magic cauldron: furniturepack:magic_cauldron
+  magic pillar: furniturepack:magic_pillar
+  chair: furniturepack:chair
+  lamp: furniturepack:lamp
+  mini cauldron: furniturepack:mini_cauldron
+  bad: ab:bad
+  good: ab:good
+  down: ab:down
+  up: ab:up
+  fairy: ab:fairy
+  job: ab:job
+  start: ab:start
+  role: ab:role
+  zskin9: ab:zskin9
+  zskin7: ab:zskin7
+  zskin8: ab:zskin8
+  zskin5: ab:zskin5
+  zskin6: ab:zskin6
+  zskin3: ab:zskin3
+  zskin4: ab:zskin4
+  zskin1: ab:zskin1
+  zskin2: ab:zskin2
+  zskin10: ab:zskin10
+  gongback: ab:gongback
